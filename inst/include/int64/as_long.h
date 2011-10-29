@@ -1,7 +1,7 @@
 // as_long.h : 64 bit integers
 //
 // Copyright (C) 2011 Romain Francois
-// Copyright (C) 2011 Google
+// Copyright (C) 2011 Google Inc.  All rights reserved.
 //
 // This file is part of int64.
 //

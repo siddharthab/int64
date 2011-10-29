@@ -1,5 +1,5 @@
 ## Copyright (C) 2011	Romain Francois
-## Copyright (C) 2011	Google
+## Copyright (C) 2011	Google Inc.  All rights reserved.
 ##
 ## This file is part of int64.
 ##
@@ -121,13 +121,13 @@ if(require("RUnit", quietly = TRUE)) {
         ## This will cause R CMD check to return error and stop
         err <- getErrors(tests)
         if( (err$nFail + err$nErr) > 0) {
-        	data <- Filter( 
-        		function(x) any( sapply(x, function(.) .[["kind"]] ) %in% c("error","failure") ) , 
+        	data <- Filter(
+        		function(x) any( sapply(x, function(.) .[["kind"]] ) %in% c("error","failure") ) ,
         		tests[[1]]$sourceFileResults )
-        	err_msg <- sapply( data, 
+        	err_msg <- sapply( data,
         	function(x) {
-        		raw.msg <- paste( 
-        			sapply( Filter( function(.) .[["kind"]] %in% c("error","failure"), x ), "[[", "msg" ), 
+        		raw.msg <- paste(
+        			sapply( Filter( function(.) .[["kind"]] %in% c("error","failure"), x ), "[[", "msg" ),
         			collapse = " // "
         			)
         		raw.msg <- gsub( "Error in compileCode(f, code, language = language, verbose = verbose) : \n", "", raw.msg, fixed = TRUE )
@@ -136,7 +136,7 @@ if(require("RUnit", quietly = TRUE)) {
         		}
         	)
         	msg <- sprintf( "unit test problems: %d failures, %d errors\n%s",
-        		err$nFail, err$nErr, 
+        		err$nFail, err$nErr,
         		paste( err_msg, collapse = "\n" )
         		)
         	stop( msg )
