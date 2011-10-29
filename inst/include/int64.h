@@ -24,7 +24,8 @@
 #define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
-#include <stdint.h>
+#include <stdint.h>		// replace with cstdint if newer C++ standard used
+#include <limits>		// for numeric_limits
 #include <string>
 
 #include <int64/int64.h>
