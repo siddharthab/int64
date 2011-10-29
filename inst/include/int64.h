@@ -24,7 +24,7 @@
 #define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
-
+#include <stdint.h>
 #include <string>
 
 #include <int64/int64.h>

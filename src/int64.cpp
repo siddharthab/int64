@@ -19,7 +19,8 @@
 // along with int64.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <int64.h>
-        
+#include <limits>
+
 namespace int64{
     namespace internal{
         
@@ -42,7 +43,7 @@ namespace int64{
                 {
                     int* data = INTEGER(x) ;
                     for( int i=0; i<n; i++){
-                        SET_STRING_ELT( res, i, Rf_mkChar( int64::internal::format_binary__impl<int>( data[i] ).c_str() ) ) ;
+                        SET_STRING_ELT( res, i, Rf_mkChar( int64::internal::format_binary__impl<int>( data[i] ) ) ) ;
                     }
                     break ;
                 }
@@ -50,7 +51,7 @@ namespace int64{
                 {
                     double* p_x = REAL(x) ;
                     for( int i=0; i<n; i++){
-                        SET_STRING_ELT( res, i, Rf_mkChar( int64::internal::format_binary__impl<double>( p_x[i] ).c_str() ) );
+                        SET_STRING_ELT( res, i, Rf_mkChar( int64::internal::format_binary__impl<double>( p_x[i] ) ) );
                     }      
                     break ;
                 }

@@ -25,20 +25,19 @@ namespace int64{
     namespace internal{
 
         template <typename T>
-        inline std::string format_binary__impl(T x) {
+        inline const char* format_binary__impl(T x) {
             const int SIZE = sizeof(T)*8 ;
-            static char b[SIZE+1];
-            b[SIZE+1] = '\0';
-        
+            static std::string b( SIZE, '0' ) ;
+            
             for (int z = 0; z < SIZE; z++) {
                 b[SIZE-1-z] = ((x>>z) & 0x1) ? '1' : '0';
             }
         
-            return b;
+            return b.c_str() ;
         }    
         
         template <>
-        inline std::string format_binary__impl<double>(double x){
+        inline const char* format_binary__impl<double>(double x){
                 int64_t* y = (int64_t*)&x ;
                 return format_binary__impl<int64_t>(*y) ;
         }
@@ -54,7 +53,7 @@ namespace int64{
             for( int i=0; i<n; i++){
                 p_x = INTEGER( VECTOR_ELT( data, i) ) ;
                 tmp = int64::internal::get_long<LONG>( p_x[0], p_x[1] ) ;
-                SET_STRING_ELT( res, i, Rf_mkChar( format_binary__impl(tmp).c_str()) ) ;
+                SET_STRING_ELT( res, i, Rf_mkChar( format_binary__impl(tmp) ) ) ;
             }
             UNPROTECT(1) ; // res
             return res ;
