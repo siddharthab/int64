@@ -164,7 +164,7 @@ setMethod( "as.character", "int64", function(x,...){
 setMethod( "as.character", "uint64", function(x,...){
   .Call( int64_as_character_int64, x, TRUE)  
 })
-
+setGeneric("as.data.frame")
 setMethod( "as.data.frame", "int64", function(x,row.names = NULL, optional = FALSE, ...){
    res <- data.frame( x =  seq_len(length(x)) )
    names(res) <- deparse( substitute(x ) )
@@ -181,10 +181,19 @@ setMethod( "as.data.frame", "uint64", function(x,row.names = NULL, optional = FA
 format.int64 <- format.uint64 <- function(x, ...){
     as.character(x)   
 }
+setGeneric("format")
 setMethod( "format", "int64", format.int64 )
 setMethod( "format", "uint64", format.uint64 )
 
 numeric_limits <- function( type ){
     .Call( int64_limits, type )
 }
+
+._unique_int64 <- function(x, incomparables = FALSE, ...){
+    new( "int64", data = unique( x@.Data, incomparables, ... ) )  
+}
+setGeneric( "unique" )
+setMethod( "unique", "int64", ._unique_int64 )
+setMethod( "unique", "uint64", ._unique_int64 )
+
 

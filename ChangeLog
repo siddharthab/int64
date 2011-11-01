@@ -1,0 +1,7 @@
+2011-11-01  Romain Francois  <romain@r-enthusiasts.com>
+
+    * R/int64.R: implementation of unique for int64 and uint64
+    
+    * man/unique-methods.Rd: documentation of the above
+
+
