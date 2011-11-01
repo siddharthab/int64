@@ -3,5 +3,7 @@
     * R/int64.R: implementation of unique for int64 and uint64
     
     * man/unique-methods.Rd: documentation of the above
+    
+    * inst/unitTests/runit.int64.R: unit tests for unique
 
 

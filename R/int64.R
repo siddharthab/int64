@@ -189,11 +189,12 @@ numeric_limits <- function( type ){
     .Call( int64_limits, type )
 }
 
-._unique_int64 <- function(x, incomparables = FALSE, ...){
-    new( "int64", data = unique( x@.Data, incomparables, ... ) )  
-}
 setGeneric( "unique" )
-setMethod( "unique", "int64", ._unique_int64 )
-setMethod( "unique", "uint64", ._unique_int64 )
+setMethod( "unique", "int64", function(x, incomparables = FALSE, ...){
+    new( "int64", .Data = unique( x@.Data, incomparables, ... ) )  
+} )
+setMethod( "unique", "uint64", function(x, incomparables = FALSE, ...){
+    new( "uint64", .Data = unique( x@.Data, incomparables, ... ) )  
+} )
 
 

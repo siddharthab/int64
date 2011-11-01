@@ -65,3 +65,13 @@ test.uint64 <- function(){
 
 }
 
+
+test.unique.int64 <- function(){
+    x <- as.int64( c(1:5, 1L, 3L) )
+    checkEquals( unique(x), as.int64(1:5) )
+    
+    x <- as.uint64( c(1:5, 1L, 3L) )
+    checkEquals( unique(x), as.uint64(1:5) )
+    
+}
+
