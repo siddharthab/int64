@@ -1,4 +1,4 @@
-// routines.h: int64 64 bit integers
+// int64.cpp: int64 64 bit integers
 //
 // Copyright (C) 2011 Romain Francois
 // Copyright (C) 2011 Google Inc.  All rights reserved.
@@ -150,3 +150,15 @@ extern "C" SEXP int64_limits( SEXP type_ ){
     Rf_error( "unsupported type" ) ;
     return R_NilValue ;
 }
+
+extern "C" SEXP int64_sort( SEXP x, SEXP unsign, SEXP decr ){
+    bool is_unsigned = INTEGER(unsign)[0] ;
+    bool decreasing = INTEGER(decr)[0] ;
+    
+    if( is_unsigned ){
+        return int64::LongVector<uint64_t>(x).sort(decreasing ) ;   
+    } else {
+        return int64::LongVector<int64_t>(x).sort(decreasing ) ;
+    }
+}
+

@@ -1,3 +1,9 @@
+2011-11-012  Romain Francois  <romain@r-enthusiasts.com>
+
+    * R/int64.R: implementation of sort for int64 and uint64
+    
+    * inst/include/int64/LongVector.h: LongVector<>::sort
+
 2011-11-01  Romain Francois  <romain@r-enthusiasts.com>
 
     * R/int64.R: implementation of unique for int64 and uint64

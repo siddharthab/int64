@@ -23,6 +23,8 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 namespace int64{
     
@@ -36,7 +38,16 @@ namespace int64{
             R_PreserveObject(data) ;   
         }
         
-        operator SEXP(){ return data; }
+        operator SEXP(){ 
+            std::string klass = int64::internal::get_class<LONG>() ;
+            SEXP res = PROTECT( 
+                R_do_slot_assign( 
+                    R_do_new_object( R_do_MAKE_CLASS( klass.c_str() ) ), 
+                    Rf_install(".Data"), 
+                    data ) ) ;
+            UNPROTECT(1) ;
+            return res ;    
+        }
         
         LongVector(int n) : data(R_NilValue) {
             SEXP x = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
@@ -47,6 +58,21 @@ namespace int64{
             data = x ;
             R_PreserveObject(data) ;
         }
+        
+        template <typename ITERATOR>
+        LongVector(int n, ITERATOR start, ITERATOR end) : data(R_NilValue) {
+            SEXP x = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
+            int hb, lb ;
+            for( int i=0; i<n; i++, ++start){
+                hb = int64::internal::get_high_bits<LONG>(*start) ;
+                lb = int64::internal::get_low_bits<LONG>(*start) ;
+                SET_VECTOR_ELT( x, i, int64::internal::int2(hb,lb) ) ;    
+            }
+            UNPROTECT(1) ; // x
+            data = x ;
+            R_PreserveObject(data) ;
+        }
+        
         
         ~LongVector(){
             R_ReleaseObject(data) ;   
@@ -64,6 +90,17 @@ namespace int64{
         }
         
         inline int size() const { return Rf_length(data); }
+        
+        LongVector<LONG> sort(bool decreasing) const {
+            int n = size() ;
+            std::vector<LONG> x( n ) ;
+            for( int i=0; i<n; i++){
+                x[i] = get(i) ;
+            }
+            // FIXME: deal with decreasing
+            std::sort( x.begin(), x.end() ) ;
+            return LongVector<LONG>( n, x.begin(), x.end() ) ;
+        }
         
     } ;
 

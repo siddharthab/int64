@@ -197,4 +197,11 @@ setMethod( "unique", "uint64", function(x, incomparables = FALSE, ...){
     new( "uint64", .Data = unique( x@.Data, incomparables, ... ) )  
 } )
 
+setGeneric( "sort" )
+setMethod( "sort", "int64", function(x, decreasing = FALSE, ...){
+    .Call( int64_sort, x, FALSE, decreasing )
+} )
+setMethod( "sort", "uint64", function(x, decreasing = FALSE, ...){
+    .Call( int64_sort, x, TRUE, decreasing )
+} )
 
