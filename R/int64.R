@@ -205,3 +205,11 @@ setMethod( "sort", "uint64", function(x, decreasing = FALSE, ...){
     .Call( int64_sort, x, TRUE, decreasing )
 } )
 
+setGeneric( "Math" )
+setMethod( "Math", "int64", function(x){
+    .Call( int64_math, .Generic, x, FALSE )
+} )
+setMethod( "Math", "uint64", function(x){
+    .Call( int64_math, .Generic, x, TRUE )
+} )
+

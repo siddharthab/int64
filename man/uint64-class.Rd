@@ -2,6 +2,7 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{uint64-class}
+\alias{Math,uint64-method}
 \alias{[,uint64-method}
 \alias{[<-,uint64-method}
 \alias{Arith,ANY,uint64-method}
@@ -51,6 +52,7 @@ Class \code{"\linkS4class{vector}"}, by class "list", distance 2.
     \item{format}{\code{signature(x = "uint64")}: ... }
     \item{length}{\code{signature(x = "uint64")}: ... }
     \item{Summary}{\code{signature(x = "uint64")}: ... }
+    \item{Math}{\code{signature(x = "uint64")}: ... }
 	 }
 }
 \author{

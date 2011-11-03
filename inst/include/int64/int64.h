@@ -31,8 +31,8 @@ namespace int64{
 #include <int64/get_bits.h>
 #include <int64/get_class.h>
 
-#include <int64/format_binary.h>
 #include <int64/LongVector.h>
+#include <int64/format_binary.h>
 #include <int64/as_long.h>
 #include <int64/as_character.h>
 
@@ -44,13 +44,7 @@ namespace int64{
             std::string klass = get_class<LONG>() ;
             int64::LongVector<LONG> y(1) ;
             y.set(0, x) ;
-            SEXP res = PROTECT( 
-                R_do_slot_assign( 
-                    R_do_new_object( R_do_MAKE_CLASS( klass.c_str() ) ), 
-                    Rf_install(".Data"), 
-                    y ) ) ;
-            UNPROTECT(1) ;
-            return res ;
+            return y ;
         }
         
         template <typename LONG>
@@ -59,13 +53,7 @@ namespace int64{
             int64::LongVector<LONG> z(2) ;
             z.set(0, x ) ;
             z.set(1, y ) ;
-            SEXP res = PROTECT( 
-                R_do_slot_assign( 
-                    R_do_new_object( R_do_MAKE_CLASS( klass.c_str() ) ), 
-                    Rf_install(".Data"), 
-                    z ) ) ;
-            UNPROTECT(1) ;
-            return res ;
+            return z ;
         }
         
     }
@@ -76,5 +64,6 @@ namespace int64{
 #include <int64/arith.h>
 #include <int64/compare.h>
 #include <int64/summary.h>
+#include <int64/math.h>
 
 #endif

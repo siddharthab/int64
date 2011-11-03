@@ -75,3 +75,13 @@ test.unique.int64 <- function(){
     
 }
 
+test.sort <- function( ){
+    x <- as.int64( c(1:4, 3L ) )
+    checkEquals( sort( x ), as.int64( c(1:3,3L,4L) ) )
+    checkEquals( sort( x, decreasing = TRUE), as.int64( c(4L,3L,3:1) ) )
+    
+    x <- as.uint64( c(1:4, 3L ) )
+    checkEquals( sort( x ), as.uint64( c(1:3,3L,4L) ) )
+    checkEquals( sort( x, decreasing = TRUE), as.uint64( c(4L,3L,3:1) ) )
+}
+

@@ -162,3 +162,14 @@ extern "C" SEXP int64_sort( SEXP x, SEXP unsign, SEXP decr ){
     }
 }
 
+extern "C" SEXP int64_math( SEXP generic, SEXP x, SEXP unsign){
+    bool is_unsigned = INTEGER(unsign)[0]; 
+    const char* op = CHAR(STRING_ELT(generic, 0 ) ); 
+    
+    if( is_unsigned ){
+        return int64::internal::math<uint64_t>( op, x ) ;   
+    } else {
+        return int64::internal::math<int64_t>( op, x ) ;
+    }
+    
+}

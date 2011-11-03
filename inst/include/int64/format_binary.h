@@ -44,16 +44,12 @@ namespace int64{
 
         template <typename LONG>
         SEXP int64_format_binary_long(SEXP x){
-            SEXP data = R_do_slot(x, Rf_install(".Data") ) ;
-            int n = Rf_length(data) ; 
+            int64::LongVector<LONG> data(x) ;
+            int n = data.size() ; 
             
             SEXP res = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
-            int* p_x ;
-            LONG tmp ;
             for( int i=0; i<n; i++){
-                p_x = INTEGER( VECTOR_ELT( data, i) ) ;
-                tmp = int64::internal::get_long<LONG>( p_x[0], p_x[1] ) ;
-                SET_STRING_ELT( res, i, Rf_mkChar( format_binary__impl(tmp) ) ) ;
+                SET_STRING_ELT( res, i, Rf_mkChar( format_binary__impl(data.get(i)) ) ) ;
             }
             UNPROTECT(1) ; // res
             return res ;

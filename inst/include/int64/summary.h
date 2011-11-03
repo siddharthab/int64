@@ -118,7 +118,7 @@ SEXP summary__all( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP int64_summary(const char* op, SEXP x){
-    int64::LongVector<LONG> data( R_do_slot(x, Rf_install(".Data") ) ) ;
+    int64::LongVector<LONG> data( x ) ;
     
     if( ! strcmp(op, "min") ){
         return int64::internal::summary__min<LONG>( data ) ;

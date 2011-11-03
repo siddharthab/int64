@@ -5,7 +5,8 @@ import( methods )
 exportClasses( "int64", "uint64", "binary" )
 
 exportMethods( 
-    show, length, "[", Arith, Compare, Summary, as.character, format, 
+    show, length, "[", Arith, Compare, Summary, Math, 
+    as.character, format, 
     
     as.data.frame, binary, unique, sort
 )

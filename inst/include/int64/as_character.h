@@ -29,7 +29,7 @@ namespace int64{
 
 template <typename LONG>
 SEXP int64_as_character( SEXP x){
-    int64::LongVector<LONG> data( R_do_slot(x, Rf_install(".Data") ) ) ;
+    int64::LongVector<LONG> data( x ) ;
     int n = data.size() ; 
     SEXP res = PROTECT( Rf_allocVector( STRSXP, n) ) ;
     std::ostringstream stream ;

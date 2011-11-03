@@ -33,8 +33,8 @@ template <typename T> inline T int_div(T x1,T x2){ return x1 / x2 ; }
         
 template <typename LONG, LONG Fun(LONG x1, LONG x2)>
 SEXP arith_long_long(SEXP e1, SEXP e2){
-    int64::LongVector<LONG> x1( R_do_slot( e1, Rf_install(".Data") ) ) ;
-    int64::LongVector<LONG> x2( R_do_slot( e2, Rf_install(".Data") ) ) ;
+    int64::LongVector<LONG> x1( e1 ) ;
+    int64::LongVector<LONG> x2( e2 ) ;
     
     int n1 = x1.size(), n2 = x2.size();
     LONG tmp ;

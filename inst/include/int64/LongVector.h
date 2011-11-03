@@ -35,10 +35,10 @@ namespace int64{
         
     public:
         LongVector(SEXP x) : data(x) {
-            R_PreserveObject(data) ;   
+            R_PreserveObject(R_do_slot(data, Rf_install(".Data"))) ;   
         }
         
-        operator SEXP(){ 
+        operator SEXP(){
             std::string klass = int64::internal::get_class<LONG>() ;
             SEXP res = PROTECT( 
                 R_do_slot_assign( 
@@ -98,7 +98,11 @@ namespace int64{
                 x[i] = get(i) ;
             }
             // FIXME: deal with decreasing
-            std::sort( x.begin(), x.end() ) ;
+            if( decreasing ){
+                std::sort( x.begin(), x.end(), std::greater<LONG>() ) ;
+            } else {
+                std::sort( x.begin(), x.end() ) ;
+            }
             return LongVector<LONG>( n, x.begin(), x.end() ) ;
         }
         
