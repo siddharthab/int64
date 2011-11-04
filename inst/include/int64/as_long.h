@@ -58,7 +58,16 @@ SEXP as_long(SEXP x){
                 data.set( i, tmp ) ;
             }
             break;                               
-        }     
+        }
+    case REALSXP:
+        {
+            double* pd_x = REAL(x) ; 
+            for( int i=0;i<n; i++){
+                LONG tmp = pd_x[i] ;
+                data.set( i, tmp ) ;
+            }
+            break;
+        }
     default:
         Rf_error( "incompatible type" ) ;
     }
