@@ -206,10 +206,10 @@ setMethod( "sort", "uint64", function(x, decreasing = FALSE, ...){
 } )
 
 setMethod( "Math", "int64", function(x){
-    .External( int64_math, .Generic, x, FALSE)
+    .Call( int64_math, .Generic, x, FALSE)
 } )
 setMethod( "Math", "uint64", function(x){
-    .External( int64_math, .Generic, x, TRUE )
+    .Call( int64_math, .Generic, x, TRUE )
 } )
 
 # implementation of signif using string maniplation

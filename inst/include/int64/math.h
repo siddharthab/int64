@@ -53,6 +53,71 @@ SEXP sign( SEXP x){
 }
 
 template <typename LONG>
+SEXP cummax( SEXP x){
+    int64::LongVector<LONG> data(x) ;
+    int n = data.size() ;
+    int64::LongVector<LONG> res(x) ;
+    LONG max = data.get(0) ;
+    res.set( 0, max) ;
+    LONG tmp = 0 ;
+    
+    for( int i=1; i<n; i++){
+        tmp = data.get(i) ;
+        if( tmp > max ) max=tmp ;
+        res.set( i, max ) ;
+    }
+    return res ;
+}
+
+template <typename LONG>
+SEXP cummin( SEXP x){
+    int64::LongVector<LONG> data(x) ;
+    int n = data.size() ;
+    int64::LongVector<LONG> res(x) ;
+    LONG max = data.get(0) ;
+    res.set( 0, max) ;
+    LONG tmp = 0 ;
+    
+    for( int i=1; i<n; i++){
+        tmp = data.get(i) ;
+        if( tmp < max ) max=tmp ;
+        res.set( i, max ) ;
+    }
+    return res ;
+}
+
+template <typename LONG>
+SEXP cumprod( SEXP x){
+    int64::LongVector<LONG> data(x) ;
+    int n = data.size() ;
+    int64::LongVector<LONG> res(x) ;
+    LONG prod = data.get(0) ;
+    res.set( 0, prod) ;
+    
+    for( int i=1; i<n; i++){
+        prod *= data.get(i) ;
+        res.set( i, prod ) ;
+    }
+    return res ;
+}
+
+template <typename LONG>
+SEXP cumsum( SEXP x){
+    int64::LongVector<LONG> data(x) ;
+    int n = data.size() ;
+    int64::LongVector<LONG> res(x) ;
+    LONG prod = data.get(0) ;
+    res.set( 0, prod) ;
+    
+    for( int i=1; i<n; i++){
+        prod += data.get(i) ;
+        res.set( i, prod ) ;
+    }
+    return res ;
+}
+
+
+template <typename LONG>
 SEXP math( const char* op, SEXP x ){
     
     if( !strcmp( op, "abs" ) ){
@@ -63,6 +128,14 @@ SEXP math( const char* op, SEXP x ){
         return x ;
     } else if( !strcmp( op, "floor" ) ){
         return x ;   
+    } else if( !strcmp( op, "cummax" ) ){
+        return cummax<LONG>( x ) ;
+    } else if( !strcmp( op, "cummin" ) ){
+        return cummin<LONG>( x ) ;
+    } else if( !strcmp( op, "cumprod" ) ){
+        return cumprod<LONG>( x ) ;
+    } else if( !strcmp( op, "cumsum" ) ){
+        return cumsum<LONG>( x ) ;   
     }
     
     Rf_error( "generic not implemented" );
