@@ -23,7 +23,7 @@
 
 namespace int64{
     namespace internal{
-
+      
 template <typename LONG>
 SEXP abs( SEXP x ){
     int64::LongVector<LONG> data(x) ;
@@ -59,9 +59,13 @@ SEXP math( const char* op, SEXP x ){
         return abs<LONG>(x) ;
     } else if( !strcmp(op, "sign") ) {
         return sign<LONG>(x) ;
+    } else if( !strcmp( op, "trunc" ) ){
+        return x ;
+    } else if( !strcmp( op, "floor" ) ){
+        return x ;   
     }
     
-    Rf_error( "operator not implemented" );
+    Rf_error( "generic not implemented" );
     return R_NilValue ;
 }
 

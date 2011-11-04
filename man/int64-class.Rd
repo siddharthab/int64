@@ -4,6 +4,7 @@
 \alias{int64-class}
 \alias{[,int64-method}
 \alias{Math,int64-method}
+\alias{Math2,int64-method}
 \alias{[<-,int64-method}
 \alias{Arith,ANY,int64-method}
 \alias{Arith,int64,ANY-method}
@@ -53,6 +54,7 @@ Class \code{"\linkS4class{vector}"}, by class "list", distance 2.
     \item{length}{\code{signature(x = "int64")}: ... }
     \item{Summary}{\code{signature(x = "int64")}: ... }
     \item{Math}{\code{signature(x = "int64")}: ... }
+    \item{Math2}{\code{signature(x = "int64")}: ... }
 	 }
 }
 \author{

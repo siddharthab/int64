@@ -205,11 +205,41 @@ setMethod( "sort", "uint64", function(x, decreasing = FALSE, ...){
     .Call( int64_sort, x, TRUE, decreasing )
 } )
 
-setGeneric( "Math" )
 setMethod( "Math", "int64", function(x){
-    .Call( int64_math, .Generic, x, FALSE )
+    .External( int64_math, .Generic, x, FALSE)
 } )
 setMethod( "Math", "uint64", function(x){
-    .Call( int64_math, .Generic, x, TRUE )
+    .External( int64_math, .Generic, x, TRUE )
 } )
+
+# implementation of signif using string maniplation
+int64_Math2 <- function( type = "int64", .Generic, x, digits ){
+    if( .Generic == "round" ) x else{
+        if( any(digits<0 ) ) stop("digits must be positive")
+        
+        # signif
+        s <- as.character( x )
+        len <- nchar( s )
+        signs <- ! grepl( "^-", s )
+        s <- sub( "^-", "", s ) 
+        
+        # recycling
+        digits <- as.integer( rep( digits, length = length( s ) ) )
+        digits[ digits == 0L ] <- 1L
+        
+        res <- .Call( int64_signif, s, digits, len )
+        res <- sprintf( "%s%s", ifelse(signs, "", "-"), res )
+        
+        if( type == "int64" ) as.int64(res) else as.uint64(res) 
+    }
+}
+
+setMethod( "Math2", "int64", function(x, digits  = 6L){
+    int64_Math2( "int64", .Generic, x, digits )
+} )
+setMethod( "Math2", "uint64", function(x, digits = 6L){
+    int64_Math2( "uint64", .Generic, x, digits )
+} )
+
+
 

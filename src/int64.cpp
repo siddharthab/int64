@@ -170,6 +170,30 @@ extern "C" SEXP int64_math( SEXP generic, SEXP x, SEXP unsign){
         return int64::internal::math<uint64_t>( op, x ) ;   
     } else {
         return int64::internal::math<int64_t>( op, x ) ;
-    }
-    
+    }   
 }
+
+extern "C" SEXP int64_signif( SEXP s_, SEXP digits_, SEXP len_){
+    std::string s ;
+    int n = Rf_length(s_) ;
+    int* digits = INTEGER(digits_) ;
+    int* len = INTEGER(len_) ;
+    int tmp = 0 ;
+    
+    SEXP res = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
+    for( int i=0; i<n; i++){
+        if( digits[i] > len[i] ){
+            SET_STRING_ELT( res, i, STRING_ELT( s_, i ) ) ;    
+        } else {
+            s = CHAR(STRING_ELT(s_, i ));
+            tmp = len[i] - digits[i] ; 
+            for( int j=tmp; j<len[i]; j++){
+                s[j] = '0' ;
+            }
+            SET_STRING_ELT( res, i, Rf_mkChar(s.c_str()) ) ;
+        }
+    }
+    UNPROTECT(1) ;
+    return res ;
+}
+

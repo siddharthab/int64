@@ -48,6 +48,7 @@ CALLFUN_1(int64_limits) ;
 
 CALLFUN_3(int64_sort) ;
 CALLFUN_3(int64_math) ;
+CALLFUN_3(int64_signif) ;
 
 #ifdef __cplusplus
 }
