@@ -10,6 +10,8 @@
 \alias{Arith,int64,ANY-method}
 \alias{Arith,int64,int64-method}
 \alias{as.character,int64-method}
+\alias{names,int64-method}
+\alias{names<-,int64-method}
 \alias{as.data.frame,int64-method}
 \alias{Compare,ANY,int64-method}
 \alias{Compare,int64,ANY-method}
@@ -32,6 +34,8 @@ Vector of signed 64 bit integers
   \describe{
     \item{\code{.Data}:}{list of integer vectors of length 2. Each 
     int64 number is coded as two integers. }
+    \item{\code{NAMES}:}{Used for names of vectors. This is only being 
+    used through the \code{names} and \code{names<-} functions. }
   }
 }
 \section{Extends}{

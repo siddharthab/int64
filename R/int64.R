@@ -16,8 +16,39 @@
 # You should have received a copy of the GNU General Public License
 # along with int64.  If not, see <http://www.gnu.org/licenses/>.
 
-setClass( "int64", contains = "list" )
-setClass( "uint64", contains = "list" )
+setClassUnion( "maybeNames", c("character", "NULL" ) )
+
+names_int64 <- function(x){
+    x@NAMES    
+}
+namesgets_int64 <- function( x, value){
+    if( missing(value) || is.null(value) ){
+        x@NAMES <- NULL
+    } else if( is.character( value )){
+        if( length( value ) == length( x@.Data ) ){
+            x@NAMES <- value
+        } else if(length(value) < length(x@.Data) ) {
+            x@NAMES <- c( value, rep( NA, length(x@.Data) - length(value) ) )
+        } else {
+            stop( "error assigning names" )
+        }
+    } else {
+        stop( "must be character vector or NULL" )
+    }
+    x    
+}
+setClass( "int64", contains = "list", 
+    representation( NAMES = "maybeNames")
+)
+setClass( "uint64", contains = "list" ,
+    representation( NAMES = "maybeNames")
+)
+
+setMethod( "names", "int64", names_int64 )
+setMethod( "names<-", "int64", namesgets_int64 )
+setMethod( "names", "uint64", names_int64 )
+setMethod( "names<-", "uint64", namesgets_int64 )
+
 
 setClass( "binary",  
     representation( data = "character", bits = "integer" )
@@ -56,14 +87,18 @@ setMethod( "length", "int64", function(x){
 setMethod( "length", "uint64", function(x){
     length(x@.Data)
 } )
-setMethod( "show", "int64", function(object){
-    print( noquote( as.character( object ) ) )
+show_int64 <- function(object){
+    if( is.null( object@NAMES ) ){
+        print( noquote( as.character( object ) ) )
+    } else {
+        x <- as.character( object )
+        names(x) <- object@NAMES
+        print(noquote(x))
+    }
     invisible(object)
-} )
-setMethod( "show", "uint64", function(object){
-    print( noquote( as.character( object ) ) )
-    invisible(object)
-} )
+} 
+setMethod( "show", "int64", show_int64)
+setMethod( "show", "uint64", show_int64)
 
 as.int64 <- function(x){
     new( "int64", .Call(int64_as_int64, x) ) 

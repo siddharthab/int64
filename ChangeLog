@@ -1,4 +1,9 @@
-2011-11-012  Romain Francois  <romain@r-enthusiasts.com>
+2011-11-06  Romain Francois  <romain@r-enthusiasts.com>
+
+    * R/int64.R: adding names and names<- to show 64 big integer vectors with
+    names
+
+2011-11-01  Romain Francois  <romain@r-enthusiasts.com>
 
     * R/int64.R: implementation of sort for int64 and uint64
     
