@@ -6,7 +6,7 @@ exportClasses( "int64", "uint64", "binary" )
 
 exportMethods( 
     show, length, "[", Arith, Compare, Summary, Math, Math2,  
-    as.character, format, 
+    as.character, format, names, "names<-", 
     
     as.data.frame, binary, unique, sort
 )
