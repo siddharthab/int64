@@ -24,42 +24,9 @@
 namespace int64{
     namespace internal{
        
-        
 template <typename LONG>
 SEXP as_long(SEXP x){
-    int n = Rf_length(x) ;
-    int64::LongVector<LONG> data(n) ;
-    switch( TYPEOF(x) ){
-    case INTSXP:
-        {
-            int* p_x = INTEGER(x) ;
-            for( int i=0;i<n; i++){
-                data.set( i, (LONG)p_x[i] ) ;
-            }
-            break ;
-        }
-    case STRSXP:
-        {
-            for( int i=0;i<n; i++){
-                LONG tmp = read_string<LONG>(CHAR(STRING_ELT(x,i))) ;
-                data.set( i, tmp ) ;
-            }
-            break;                               
-        }
-    case REALSXP:
-        {
-            double* pd_x = REAL(x) ; 
-            for( int i=0;i<n; i++){
-                LONG tmp = pd_x[i] ;
-                data.set( i, tmp ) ;
-            }
-            break;
-        }
-    default:
-        Rf_error( "incompatible type" ) ;
-    }
-    return data ;
-       
+    return LongVector<LONG>(x) ;
 }
         
     } // namespace internal
