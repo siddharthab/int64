@@ -97,3 +97,23 @@ test.signif <- function(){
        )     
 }
 
+test.names <- function(){
+    x <- as.int64( 1:5 )
+    checkTrue( is.null(names(x) ) )
+    names <- letters[1:5]
+    names(x) <- names
+    checkEquals( names(x), letters[1:5] )
+    names(x) <- NULL
+    checkTrue( is.null(names(x) ) )
+    
+    
+    x <- as.uint64( 1:5 )
+    checkTrue( is.null(names(x) ) )
+    names <- letters[1:5]
+    names(x) <- names
+    checkEquals( names(x), letters[1:5] )
+    names(x) <- NULL
+    checkTrue( is.null(names(x) ) )
+    
+}
+
