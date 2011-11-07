@@ -62,9 +62,7 @@ test.uint64 <- function(){
     chars <- c( "123456789123456789", "18446744073709551615" )
     x <- as.uint64( chars )
     checkEquals( as.character(x), chars )
-
 }
-
 
 test.unique.int64 <- function(){
     x <- as.int64( c(1:5, 1L, 3L) )
@@ -83,5 +81,19 @@ test.sort <- function( ){
     x <- as.uint64( c(1:4, 3L ) )
     checkEquals( sort( x ), as.uint64( c(1:3,3L,4L) ) )
     checkEquals( sort( x, decreasing = TRUE), as.uint64( c(4L,3L,3:1) ) )
+}
+
+test.signif <- function(){
+    x <- as.int64( c( "12345", "12345", "12345" ) )
+    checkEquals( 
+        signif( x, c(2,3,7) ),
+        as.int64( c("12000", "12300", "12345") )
+        )
+        
+   x <- as.uint64( c( "12345", "12345", "12345" ) )
+   checkEquals( 
+       signif( x, c(2,3,7) ),
+       as.uint64( c("12000", "12300", "12345") )
+       )     
 }
 

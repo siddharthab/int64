@@ -186,8 +186,7 @@ extern "C" SEXP int64_signif( SEXP s_, SEXP digits_, SEXP len_){
             SET_STRING_ELT( res, i, STRING_ELT( s_, i ) ) ;    
         } else {
             s = CHAR(STRING_ELT(s_, i ));
-            tmp = len[i] - digits[i] ; 
-            for( int j=tmp; j<len[i]; j++){
+            for( int j=digits[i]; j<len[i]; j++){
                 s[j] = '0' ;
             }
             SET_STRING_ELT( res, i, Rf_mkChar(s.c_str()) ) ;
