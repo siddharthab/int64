@@ -23,20 +23,7 @@
               
 namespace int64{
     namespace internal{
-
-    template <typename LONG>
-    LONG read_string(const char* s) ;
-    
-    template <>
-    int64_t read_string<int64_t>(const char* s ){
-        return strtoll( s, NULL, 0 ) ; 
-    }
-        
-    template <>
-    uint64_t read_string<uint64_t>(const char* s){
-        return strtoull( s, NULL, 0 ) ;
-    } 
-        
+       
         
 template <typename LONG>
 SEXP as_long(SEXP x){
