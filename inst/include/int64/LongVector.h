@@ -58,6 +58,24 @@ namespace int64{
                             R_PreserveObject(data) ;  
                             break ;
                         }
+                    case LGLSXP:
+                        {
+                           int n = Rf_length(x) ;
+                            SEXP y = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
+                            int hb, lb ;
+                            LONG tmp ;
+                            int* p_i_x = INTEGER(x) ;
+                            for( int i=0; i<n; i++){
+                                tmp = (LONG) p_i_x[i] ;
+                                hb = internal::get_high_bits<LONG>(tmp) ;
+                                lb = internal::get_low_bits<LONG>(tmp) ;
+                                SET_VECTOR_ELT( y, i, int64::internal::int2(hb,lb) ) ;    
+                            }
+                            UNPROTECT(1) ; // y
+                            data = y ;
+                            R_PreserveObject(data) ;  
+                            break ;
+                         }
                     case REALSXP: 
                         {
                             int n = Rf_length(x) ;
