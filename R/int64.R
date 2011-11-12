@@ -101,9 +101,15 @@ setMethod( "show", "int64", show_int64)
 setMethod( "show", "uint64", show_int64)
 
 as.int64 <- function(x){
+    if( is.character(x) ){
+        x[ ! grepl("^[-][0-9]+$", x) ] <- NA     
+    }
     new( "int64", .Call(int64_as_int64, x) ) 
 }
 as.uint64 <- function(x){
+    if( is.character(x) ){
+        x[ ! grepl("^[-][0-9]+$", x) ] <- NA     
+    }
     new( "uint64", .Call(int64_as_uint64, x) ) 
 }
 
@@ -277,4 +283,9 @@ setMethod( "Math2", "uint64", function(x, digits = 6L){
 } )
 
 
-
+setMethod( "is.na", "int64", function(x){
+  .Call( int64_isna, x, FALSE )  
+})
+setMethod( "is.na", "uint64", function(x){
+  .Call( int64_isna, x, TRUE )  
+})

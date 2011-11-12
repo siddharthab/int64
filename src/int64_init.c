@@ -43,6 +43,7 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(int64_sort,3),
     CALLDEF(int64_math,3),
     CALLDEF(int64_signif,3),
+    CALLDEF(int64_isna,2),
     
     {NULL, NULL, 0}
 }; 

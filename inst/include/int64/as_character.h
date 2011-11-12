@@ -33,8 +33,14 @@ SEXP int64_as_character( SEXP x){
     int n = data.size() ; 
     SEXP res = PROTECT( Rf_allocVector( STRSXP, n) ) ;
     std::ostringstream stream ;
-    for( int i=0; i<n; i++){ 
-        stream << data.get(i) ;
+    LONG tmp ;
+    for( int i=0; i<n; i++){
+        tmp = data.get(i) ;
+        if( tmp == int64::LongVector<LONG>::na ){
+            stream << "NA" ;
+        } else {
+            stream << data.get(i) ;
+        }
         SET_STRING_ELT( res, i, Rf_mkChar(stream.str().c_str()) ) ;
         stream.str("") ;
     }
