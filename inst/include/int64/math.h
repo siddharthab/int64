@@ -26,12 +26,14 @@ namespace int64{
       
 template <typename LONG>
 SEXP abs( SEXP x ){
+    const LONG na = int64::LongVector<LONG>::na ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     LONG tmp ;
     int64::LongVector<LONG> res(n) ;
     for( int i=0; i<n; i++){
         tmp = data.get(i) ;
+        if( tmp == na ) res.set(i, na ) ;
         res.set( i, tmp > 0 ? tmp : -tmp ) ;            
     }
     return res ;    
@@ -41,12 +43,19 @@ SEXP abs<uint64_t>( SEXP x ){ return x ; }
      
 template <typename LONG>
 SEXP sign( SEXP x){
+    const LONG na = int64::LongVector<LONG>::na ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
+    LONG tmp ;
     SEXP res = PROTECT(Rf_allocVector(REALSXP,n)) ;
     double* p_res = REAL(res) ;
     for( int i=0; i<n; i++){
-        p_res[i] = ( data.get(i) > 0 ) ? 0.0 : 1.0 ;
+        tmp = data.get(i) ;
+        if( tmp == na ) {
+            p_res[i] = NA_REAL ;
+        } else {
+            p_res[i] = ( data.get(i) > 0 ) ? 0.0 : 1.0 ;
+        }
     }
     UNPROTECT(1) ;
     return res ;    
