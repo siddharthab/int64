@@ -20,16 +20,72 @@
     
 #ifndef int64__arith__h
 #define int64__arith__h
-              
+ 
+/* borrowed from R (arithmetic.c) */
+# define OPPOSITE_SIGNS(x, y) ((x < 0) ^ (y < 0))
+# define GOODISUM(x, y, z) (((x) > 0) ? ((y) < (z)) : ! ((y) < (z)))
+# define GOODIDIFF(x, y, z) (!(OPPOSITE_SIGNS(x, y) && OPPOSITE_SIGNS(x, z)))
+# define GOODIPROD(x, y, z) ((long double) (x) * (long double) (y) == (z))
+
+
 namespace int64{
     namespace internal{
 
-template <typename T> inline T plus(T x1,T x2){ return x1 + x2 ; }        
-template <typename T> inline T minus(T x1,T x2){ return x1 - x2 ; }        
-template <typename T> inline T times(T x1,T x2){ return x1 * x2 ; }        
-template <typename T> inline T divide(T x1,T x2){ return x1/x2 ; }        
-template <typename T> inline T modulo(T x1,T x2){ return x1 % x2 ; }        
-template <typename T> inline T int_div(T x1,T x2){ return x1 / x2 ; }        
+template <typename T> inline T plus(T x1,T x2){ 
+    const T na = int64::LongVector<T>::na ;
+    if( x1 == na || x2 == na ){
+        return na ;
+    }
+    T res = x1 + x2 ;
+    if (res != na && GOODISUM(x1, x2, res)){
+        return res ;
+    } 
+    return na ;
+}        
+template <typename T> inline T minus(T x1,T x2){ 
+    const T na = int64::LongVector<T>::na ;
+    if( x1 == na || x2 == na){
+        return na ;
+    }
+    T res = x1 - x2 ;
+    if( res != na  && GOODIDIFF(x1,x2,res) ){
+        return res ;
+    }
+    return na ;
+        
+}        
+template <typename T> inline T times(T x1,T x2){ 
+    const T na = int64::LongVector<T>::na ;
+    if( x1 == na || x2 == na){
+        return na ;
+    }
+    T res = x1 * x2 ;
+    if( res != na && GOODIPROD(x1,x2,res)){
+        return res ;
+    }
+    return na ;
+}        
+template <typename T> inline T divide(T x1,T x2){ 
+    const T na = int64::LongVector<T>::na ;
+    if( x1 == na || x2 == na ){
+        return na ;
+    }
+    return x1/x2 ;
+}        
+template <typename T> inline T modulo(T x1,T x2){ 
+    const T na = int64::LongVector<T>::na ;
+    if( x1 == na || x2 == na ){
+        return na ;
+    }
+    return x1 % x2 ;
+}        
+template <typename T> inline T int_div(T x1,T x2){ 
+    const T na = int64::LongVector<T>::na ;
+    if( x1 == na || x2 == na ){
+        return na ;
+    }
+    return x1 / x2 ;
+}        
         
 template <typename LONG, LONG Fun(LONG x1, LONG x2)>
 SEXP arith_long_long(SEXP e1, SEXP e2){
