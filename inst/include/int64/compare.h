@@ -33,6 +33,7 @@ template <typename T> inline bool greater_than_or_equal(T x1,T x2){ return x1 >=
         
 template <typename LONG, bool Fun(LONG x1, LONG x2)>
 SEXP compare_long_long(SEXP e1, SEXP e2){
+    const LONG na = int64::LongVector<LONG>::na ;
     int64::LongVector<LONG> x1( e1 ) ;
     int64::LongVector<LONG> x2( e2 ) ;
     
@@ -45,22 +46,22 @@ SEXP compare_long_long(SEXP e1, SEXP e2){
     
     if( n1 == n2 ){
         for( i=0; i<n1; i++){
-            p_res[i] = Fun(x1.get(i), x2.get(i)) ;
+            p_res[i] = ( x1 == na || x2 == na) ? na : Fun(x1.get(i), x2.get(i)) ;
         }
     } else if( n1 == 1 ){
         tmp = x1.get(i) ;
         for( i=0; i<n2; i++){
-            p_res[i] = Fun(tmp,x2.get(i)) ;
+            p_res[i] = ( x1 == na || x2 == na) ? na : Fun(tmp,x2.get(i)) ;
         }
     } else if( n2 == 1) {
         tmp = x2.get(i) ;
         for( i=0; i<n1; i++){
-            p_res[i] = Fun(x1.get(i),tmp) ;
+            p_res[i] = ( x1 == na || x2 == na) ? na : Fun(x1.get(i),tmp) ;
         }
     } else {
         // recycling
         for (i=i1=i2=0; i<n; i1 = (++i1 == n1) ? 0 : i1, i2 = (++i2 == n2) ? 0 : i2, ++i){
-           p_res[i] = Fun(x1.get(i1), x2.get(i2)) ;
+           p_res[i] = ( x1 == na || x2 == na) ? na : Fun(x1.get(i1), x2.get(i2)) ;
         }
     }
     UNPROTECT(1) ; // res
