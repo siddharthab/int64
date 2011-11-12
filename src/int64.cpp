@@ -196,7 +196,7 @@ extern "C" SEXP int64_signif( SEXP s_, SEXP digits_, SEXP len_){
     
     SEXP res = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
     for( int i=0; i<n; i++){
-        if( !strcmp( CHAR(STRING_ELT(x_, i)), "NA" ) || digits[i] > len[i] ){
+        if( !strcmp( CHAR(STRING_ELT(s_, i)), "NA" ) || digits[i] > len[i] ){
             SET_STRING_ELT( res, i, STRING_ELT( s_, i ) ) ;    
         } else {
             s = CHAR(STRING_ELT(s_, i ));

@@ -1,4 +1,4 @@
-// read_string.h : 64 bit integers
+// read_string_forward.h : 64 bit integers
 //
 // Copyright (C) 2011 Romain Francois
 // Copyright (C) 2011 Google Inc.  All rights reserved.
@@ -18,29 +18,15 @@
 // You should have received a copy of the GNU General Public License  
 // along with int64.  If not, see <http://www.gnu.org/licenses/>.    
     
-#ifndef int64__read_string__h
-#define int64__read_string__h
+#ifndef int64__read_string_forward_h
+#define int64__read_string_forward_h
               
 namespace int64{
     namespace internal{
- 
-    template <>
-    inline int64_t read_string<int64_t>(const char* s ){
-        errno = 0 ;
-        int64_t res = strtoll( s, NULL, 0 ) ;
-        if( errno == ERANGE ) res = int64::LongVector<int64_t>::na ;
-        return res ;
-    }
+
+    template <typename LONG>
+    inline LONG read_string(const char* s) ;
         
-    template <>
-    inline uint64_t read_string<uint64_t>(const char* s){
-        errno = 0 ;
-        uint64_t res = strtoull( s, NULL, 0 ) ;
-        if( errno == ERANGE ) res = int64::LongVector<uint64_t>::na ;
-        return res ;
-    } 
-        
-    
     } // namespace internal
 } // namespace int64
 

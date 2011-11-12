@@ -27,6 +27,7 @@
 #include <stdint.h>		// replace with cstdint if newer C++ standard used
 #include <limits>		// for numeric_limits
 #include <string>
+#include <errno.h>
 
 #include <int64/int64.h>
 

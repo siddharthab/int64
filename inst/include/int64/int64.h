@@ -27,11 +27,12 @@ namespace int64{
     }
 }
 
+#include <int64/read_string_forward.h>
 #include <int64/get_long.h>
 #include <int64/get_bits.h>
 #include <int64/get_class.h>
-#include <int64/read_string.h>
 #include <int64/LongVector.h>
+#include <int64/read_string.h>
 #include <int64/format_binary.h>
 #include <int64/as_long.h>
 #include <int64/as_character.h>
