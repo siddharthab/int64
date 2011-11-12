@@ -137,6 +137,7 @@ SEXP summary__all( const int64::LongVector<LONG>& data){
     int n = data.size() ;
     int res = 1 ;
     LONG tmp ;
+    bool seen_na = false ;
     for( int i=0; i<n; i++){
         tmp = data.get(i) ;
         if( tmp == na ) seen_na = true ;

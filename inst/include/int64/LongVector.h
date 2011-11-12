@@ -172,8 +172,8 @@ namespace int64{
         
         LongVector(int n, LONG value) : data(R_NilValue) {
             SEXP x = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
-            int hb = get_high_bits<LONG>( value ) ;
-            int lb = get_low_bits<LONG>( value ) ;
+            int hb = internal::get_high_bits<LONG>( value ) ;
+            int lb = internal::get_low_bits<LONG>( value ) ;
             for( int i=0; i<n; i++){
                 SET_VECTOR_ELT( x, i, int64::internal::int2(hb,lb) ) ;    
             }
