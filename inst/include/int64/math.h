@@ -63,15 +63,17 @@ SEXP sign( SEXP x){
 
 template <typename LONG>
 SEXP cummax( SEXP x){
+    const LONG na = int64::LongVector<LONG>::na ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
-    int64::LongVector<LONG> res(x) ;
+    int64::LongVector<LONG> res(n, na) ;
     LONG max = data.get(0) ;
     res.set( 0, max) ;
     LONG tmp = 0 ;
     
     for( int i=1; i<n; i++){
         tmp = data.get(i) ;
+        if( tmp == na ) break ;
         if( tmp > max ) max=tmp ;
         res.set( i, max ) ;
     }
@@ -80,15 +82,17 @@ SEXP cummax( SEXP x){
 
 template <typename LONG>
 SEXP cummin( SEXP x){
+    const LONG na = int64::LongVector<LONG>::na ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
-    int64::LongVector<LONG> res(x) ;
+    int64::LongVector<LONG> res(n, na) ;
     LONG max = data.get(0) ;
     res.set( 0, max) ;
     LONG tmp = 0 ;
     
     for( int i=1; i<n; i++){
         tmp = data.get(i) ;
+        if( tmp == na ) break ;
         if( tmp < max ) max=tmp ;
         res.set( i, max ) ;
     }
@@ -97,14 +101,16 @@ SEXP cummin( SEXP x){
 
 template <typename LONG>
 SEXP cumprod( SEXP x){
+    const LONG na = int64::LongVector<LONG>::na ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
-    int64::LongVector<LONG> res(x) ;
+    int64::LongVector<LONG> res(n, na) ;
     LONG prod = data.get(0) ;
     res.set( 0, prod) ;
     
     for( int i=1; i<n; i++){
-        prod *= data.get(i) ;
+        prod = times<LONG>( prod, data.get(i) );
+        if( prod == na ) break ;
         res.set( i, prod ) ;
     }
     return res ;
@@ -112,6 +118,7 @@ SEXP cumprod( SEXP x){
 
 template <typename LONG>
 SEXP cumsum( SEXP x){
+    const LONG na = int64::LongVector<LONG>::na ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     int64::LongVector<LONG> res(x) ;
@@ -119,7 +126,8 @@ SEXP cumsum( SEXP x){
     res.set( 0, prod) ;
     
     for( int i=1; i<n; i++){
-        prod += data.get(i) ;
+        prod = plus<LONG>( prod, data.get(i) );
+        if( prod == na ) break ;
         res.set( i, prod ) ;
     }
     return res ;
