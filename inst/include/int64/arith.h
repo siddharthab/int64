@@ -52,8 +52,12 @@ template <typename T> inline T minus(T x1,T x2){
         return res ;
     }
     return na ;
-        
-}        
+}
+template <> inline uint64_t minus<uint64_t>( uint64_t x1, uint64_t x2){
+    const uint64_t na = int64::LongVector<uint64_t>::na ;
+    if( x1 == na || x2 == na || x2 > x1) return na ;
+    return x1 - x2 ;
+}
 template <typename T> inline T times(T x1,T x2){ 
     const T na = int64::LongVector<T>::na ;
     if( x1 == na || x2 == na){
