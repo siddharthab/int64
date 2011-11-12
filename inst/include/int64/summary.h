@@ -26,11 +26,17 @@ namespace int64{
 
 template <typename LONG>
 SEXP summary__min( const int64::LongVector<LONG>& data){
+    const LONG na = int64::LongVector<LONG>::na ;
     LONG x = data.get(0) ;
+    if( x == na ) return int64::internal::new_long<LONG>( na ) ;
     LONG tmp = x ;
     int n = data.size() ;
     for( int i=1; i<n; i++){
         tmp = data.get(i) ;
+        if( tmp == na ){ 
+            x = tmp ;
+            break ;
+        }
         if( tmp < x ) x = tmp ;
     }
     return int64::internal::new_long<LONG>( x ) ;
@@ -38,11 +44,16 @@ SEXP summary__min( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__max( const int64::LongVector<LONG>& data){
+    const LONG na = int64::LongVector<LONG>::na ;
     LONG x = data.get(0) ;
     LONG tmp = x ;
     int n = data.size() ;
     for( int i=1; i<n; i++){
         tmp = data.get(i) ;
+        if( tmp == na ){ 
+            x = tmp ;
+            break ;
+        }
         if( tmp > x ) x = tmp ;
     }
     return int64::internal::new_long<LONG>( x ) ;
@@ -50,12 +61,17 @@ SEXP summary__max( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__range( const int64::LongVector<LONG>& data){
+    const LONG na = int64::LongVector<LONG>::na ;
     LONG min = data.get(0) ;
     LONG max = data.get(0) ;
+    if( min == na ) return int64::internal::new_long_2<LONG>( na, na) ;
     LONG tmp = min ;
     int n = data.size() ;
     for( int i=1; i<n; i++){
         tmp = data.get(i) ;
+        if( tmp == na ){
+            min = na ; max = na ; break ;
+        }
         if( tmp < min ) min = tmp ;
         if( tmp > max ) max = tmp ;
     }
@@ -64,54 +80,79 @@ SEXP summary__range( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__prod( const int64::LongVector<LONG>& data){
+    const LONG na = int64::LongVector<LONG>::na ;
     LONG res = data.get(0) ;
+    if( res == na ) return int64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
     
     for( int i=1; i<n; i++){
-        res *= data.get(i) ;
+        res = times<LONG>( res, data.get(i) );
+        if( res == na) break ;
     }
     return int64::internal::new_long<LONG>( res ) ;
 }
 
 template <typename LONG>
 SEXP summary__sum( const int64::LongVector<LONG>& data){
+    const LONG na = int64::LongVector<LONG>::na ;
     LONG res = data.get(0) ;
+    if( res == na ) return int64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
     
     for( int i=1; i<n; i++){
-        res += data.get(i) ;
+        res = plus<LONG>( res, data.get(i) ) ;
+        if( res == na ) break ;
     }
     return int64::internal::new_long<LONG>( res ) ;
 }
 
 template <typename LONG>
 SEXP summary__any( const int64::LongVector<LONG>& data){
+    const LONG na = int64::LongVector<LONG>::na ;
     int n = data.size() ;
     int res = 0 ;
+    bool seen_na = false ;
+    LONG tmp ;
     for( int i=0; i<n; i++){
-        if( data.get(i) ) {
+        tmp = data.get(i) ;
+        if( tmp == na ) seen_na = true ;
+        if( tmp ) {
             res = 1 ;
             break ;
         }
     }
     SEXP x = PROTECT( Rf_allocVector( LGLSXP, 1 ) ) ;
-    INTEGER(x)[0] = res ;
+    if( res || !seen_na){
+        INTEGER(x)[0] = res ;
+    } else {
+        INTEGER(x)[0] = NA_LOGICAL ;
+    }
     UNPROTECT(1) ; // x
     return x ;
 }
 
 template <typename LONG>
 SEXP summary__all( const int64::LongVector<LONG>& data){
+    const LONG na = int64::LongVector<LONG>::na ;
     int n = data.size() ;
     int res = 1 ;
+    LONG tmp ;
     for( int i=0; i<n; i++){
-        if( ! data.get(i) ) {
+        tmp = data.get(i) ;
+        if( tmp == na ) seen_na = true ;
+        if( ! tmp ) {
             res = 0 ;
             break ;
         }
     }
     SEXP x = PROTECT( Rf_allocVector( LGLSXP, 1 ) ) ;
-    INTEGER(x)[0] = res ;
+    if( res && !seen_na) {
+        INTEGER(x)[0] = res ;
+    } else if( seen_na ){
+        INTEGER(x)[0] = NA_LOGICAL ;
+    } else {
+        INTEGER(x)[0] = 0 ;
+    }
     UNPROTECT(1) ; // x
     return x ;
 }
