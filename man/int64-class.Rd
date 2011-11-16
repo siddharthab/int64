@@ -86,6 +86,12 @@ Romain Francois. Sponsored the Google Open Source Programs Office.
     x + x
     x - 3L
     
+    # arithmetic operations first convert both operands to 64 bit integer type
+    # so some precision will be lost
+    as.int64(1) + 1.5
+    # but it feels appropriate for dealing with large values
+    as.int64(43124567245667) + 1.5
+    
     # logical operations
     x < 3L
     x != c( 1L, 2L )
