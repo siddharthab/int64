@@ -20,6 +20,8 @@
 \alias{length,uint64-method}
 \alias{show,uint64-method}
 \alias{Summary,uint64-method}
+\alias{c,uint64-method}
+\alias{is.na,uint64-method}
 
 \title{Class \code{"uint64"}}
 \description{
@@ -59,13 +61,15 @@ Class \code{"\linkS4class{vector}"}, by class "list", distance 2.
     \item{Summary}{\code{signature(x = "uint64")}: ... }
     \item{Math}{\code{signature(x = "uint64")}: ... }
     \item{Math2}{\code{signature(x = "uint64")}: ... }
+    \item{c}{\code{signature(x = "uint64")}: ... }
+    \item{is.na}{\code{signature(x = "uint64")}: ... }
 	 }
 }
 \author{
 Romain Francois. Sponsored the Google Open Source Programs Office. 
 }
 \seealso{
-    \code{\link{as.int64}} to convert character or integer vectors. 
+    \code{\link{as.uint64}} to convert character or integer vectors. 
     
     \code{\link{int64}} to create new \code{\linkS4class{int64}} vectors of a given size. 
 }

@@ -20,6 +20,8 @@
 \alias{length,int64-method}
 \alias{show,int64-method}
 \alias{Summary,int64-method}
+\alias{c,int64-method}
+\alias{is.na,int64-method}
 
 \title{Class \code{"int64"}}
 \description{
@@ -59,6 +61,8 @@ Class \code{"\linkS4class{vector}"}, by class "list", distance 2.
     \item{Summary}{\code{signature(x = "int64")}: ... }
     \item{Math}{\code{signature(x = "int64")}: ... }
     \item{Math2}{\code{signature(x = "int64")}: ... }
+    \item{c}{\code{signature(x = "int64")}: ... }
+    \item{is.na}{\code{signature(x = "int64")}: ... }
 	 }
 }
 \author{

@@ -114,7 +114,7 @@ SEXP cumprod( SEXP x){
         res.set( i, prod ) ;
     }
     if( int64_naflag ) {
-        Rf_warning( "NA introduced by overflow" )   
+        Rf_warning( "NA introduced by overflow" ) ;  
     }
     return res ;
 }
@@ -135,7 +135,7 @@ SEXP cumsum( SEXP x){
         res.set( i, prod ) ;
     }
     if( int64_naflag ) {
-        Rf_warning( "NA introduced by overflow" )   
+        Rf_warning( "NA introduced by overflow" )  ; 
     }
     return res ;
 }

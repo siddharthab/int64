@@ -44,7 +44,7 @@ test.int64 <- function(){
     checkEquals( any(x), any(ints) )
     checkEquals( all(x), all(ints) )
 
-    chars <- c( "-9223372036854775808", "9223372036854775807" )
+    chars <- c( "-9223372036854775807", "9223372036854775807" )
     x <- as.int64( chars )
     checkEquals( as.character(x), chars )
 
@@ -59,7 +59,7 @@ test.uint64 <- function(){
         ints
     )
 
-    chars <- c( "123456789123456789", "18446744073709551615" )
+    chars <- c( "123456789123456789", "18446744073709551614" )
     x <- as.uint64( chars )
     checkEquals( as.character(x), chars )
 }

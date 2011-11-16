@@ -289,3 +289,30 @@ setMethod( "is.na", "int64", function(x){
 setMethod( "is.na", "uint64", function(x){
   .Call( int64_isna, x, TRUE )  
 })
+
+c_int64 <- function(as, ctor){
+    function(x, ..., recursive = FALSE ){
+    dots <- list(...)
+    if( !length(dots) ) return(x)
+    
+    dots <- lapply( dots, function(x) as(x)@.Data )
+    n <- length(x) + sum( sapply( dots, length ) ) 
+    
+    res <- ctor(n) 
+    
+    res@.Data[ 1:length(x) ] <- x@.Data
+    start <- length(x)+1L
+    for( i in 1:length(dots)){
+        data <- dots[[i]]
+        res@.Data[ start:(start+length(data)-1L) ] <- data
+        start <- start + length(data)
+    }
+    res
+} 
+}
+
+
+setMethod( "c", "int64", c_int64( as.int64, int64 ) )
+setMethod( "c", "uint64", c_int64( as.uint64, uint64 ) )
+
+
