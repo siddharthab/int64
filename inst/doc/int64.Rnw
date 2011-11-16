@@ -160,6 +160,7 @@ allow these key requirements:
 \item Data must be serializable
 \item int64 and uint64 vectors have to be usable of 
 columns of data frames. 
+\item The int64 and uint64 types must supposrt missing values (NA)
 \end{itemize}
             
 \subsection{Creating new vectors}
@@ -246,6 +247,7 @@ sum( x )
 any( x )
 all( x )
 @
+         
 
 \section{Binary representation}
 
@@ -259,7 +261,7 @@ binary( as.int64( 1:4 ) ) # signed 64 bit integer (int64)
 binary( as.uint64( 1:4 ) ) # unsigned 64 bit integer (uint64)
 @
 
-\section{Numeric limits}
+\section{Numeric limits and missing values}
 
 The \texttt{numeric\_limits} function gives the limits for 
 types \texttt{integer}, \texttt{int64}, \texttt{uint64}. 
@@ -269,6 +271,20 @@ numeric_limits( "integer" )
 numeric_limits( "int64" )
 numeric_limits( "uint64" )
 @
+
+int64 and uint64 classes support missing values using the same mechanism as
+R uses for integer vectors. 
+
+For signed 64 bit integer vectors (int64), NA is represented by the 
+value $-2^{63}$, hence the range of acceptable values is 
+
+$$[-2^{63}+1,2^{63}-1]$$ 
+
+For unsigned 64 bit integer vectors (uint64), NA is represented by the
+value $2^{64}-1$, hence the range of acceptable values is
+
+$$[0,2^{64}-2]$$
+
 
 \end{document}
 
