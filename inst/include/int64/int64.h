@@ -24,6 +24,8 @@
 namespace int64{
     namespace internal {
         SEXP int2(int,int) ;
+        
+        bool int64_naflag = false ;
     }
 }
 

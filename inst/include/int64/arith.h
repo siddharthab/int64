@@ -39,7 +39,8 @@ template <typename T> inline T plus(T x1,T x2){
     T res = x1 + x2 ;
     if (res != na && GOODISUM(x1, x2, res)){
         return res ;
-    } 
+    }
+    int64_naflag = true ;
     return na ;
 }        
 template <typename T> inline T minus(T x1,T x2){ 
@@ -51,6 +52,7 @@ template <typename T> inline T minus(T x1,T x2){
     if( res != na  && GOODIDIFF(x1,x2,res) ){
         return res ;
     }
+    int64_naflag = true ;
     return na ;
 }
 template <> inline uint64_t minus<uint64_t>( uint64_t x1, uint64_t x2){
@@ -67,6 +69,7 @@ template <typename T> inline T times(T x1,T x2){
     if( res != na && GOODIPROD(x1,x2,res)){
         return res ;
     }
+    int64_naflag = true ;
     return na ;
 }        
 template <typename T> inline T divide(T x1,T x2){ 
@@ -95,7 +98,7 @@ template <typename LONG, LONG Fun(LONG x1, LONG x2)>
 SEXP arith_long_long(SEXP e1, SEXP e2){
     int64::LongVector<LONG> x1( e1 ) ;
     int64::LongVector<LONG> x2( e2 ) ;
-    
+    int64_naflag = false ;
     int n1 = x1.size(), n2 = x2.size();
     LONG tmp ;
     int i1 = 0, i2 = 0, i = 0 ;
@@ -122,6 +125,7 @@ SEXP arith_long_long(SEXP e1, SEXP e2){
            res.set( i, Fun( x1.get(i1), x2.get(i2) ) ) ;
         }
     }
+    if( int64_naflag ) Rf_warning( "NAs produced by integer overflow" ) ;
     return res ;
 }
 

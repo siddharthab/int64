@@ -192,7 +192,6 @@ extern "C" SEXP int64_signif( SEXP s_, SEXP digits_, SEXP len_){
     int n = Rf_length(s_) ;
     int* digits = INTEGER(digits_) ;
     int* len = INTEGER(len_) ;
-    int tmp = 0 ;
     
     SEXP res = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
     for( int i=0; i<n; i++){
