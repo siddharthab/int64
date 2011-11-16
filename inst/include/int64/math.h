@@ -107,11 +107,14 @@ SEXP cumprod( SEXP x){
     int64::LongVector<LONG> res(n, na) ;
     LONG prod = data.get(0) ;
     res.set( 0, prod) ;
-    
+    int64_naflag = false ;
     for( int i=1; i<n; i++){
         prod = times<LONG>( prod, data.get(i) );
         if( prod == na ) break ;
         res.set( i, prod ) ;
+    }
+    if( int64_naflag ) {
+        Rf_warning( "NA introduced by overflow" )   
     }
     return res ;
 }
@@ -124,11 +127,15 @@ SEXP cumsum( SEXP x){
     int64::LongVector<LONG> res(x) ;
     LONG prod = data.get(0) ;
     res.set( 0, prod) ;
+    int64_naflag = false ;
     
     for( int i=1; i<n; i++){
         prod = plus<LONG>( prod, data.get(i) );
         if( prod == na ) break ;
         res.set( i, prod ) ;
+    }
+    if( int64_naflag ) {
+        Rf_warning( "NA introduced by overflow" )   
     }
     return res ;
 }

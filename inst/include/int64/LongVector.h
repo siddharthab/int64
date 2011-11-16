@@ -121,6 +121,7 @@ namespace int64{
                     case STRSXP:
                         {
                             int n = Rf_length(x) ;
+                            int64::internal::int64_naflag = false ;
                             SEXP y = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
                             int hb, lb ;
                             LONG tmp ;
@@ -139,6 +140,9 @@ namespace int64{
                             UNPROTECT(1) ; // y
                             data = y ;
                             R_PreserveObject(data) ;  
+                            if( int64::internal::int64_naflag ) {
+                                Rf_warning( "NA introduced by overflow" ) ;
+                            }
                             break ;        
                         }
                     default:

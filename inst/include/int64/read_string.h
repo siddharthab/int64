@@ -28,7 +28,10 @@ namespace int64{
     inline int64_t read_string<int64_t>(const char* s ){
         errno = 0 ;
         int64_t res = strtoll( s, NULL, 0 ) ;
-        if( errno == ERANGE ) res = int64::LongVector<int64_t>::na ;
+        if( errno == ERANGE ) {
+            res = int64::LongVector<int64_t>::na ;
+            int64_naflag = true ;
+        }
         return res ;
     }
         
@@ -36,7 +39,10 @@ namespace int64{
     inline uint64_t read_string<uint64_t>(const char* s){
         errno = 0 ;
         uint64_t res = strtoull( s, NULL, 0 ) ;
-        if( errno == ERANGE ) res = int64::LongVector<uint64_t>::na ;
+        if( errno == ERANGE ) {
+            res = int64::LongVector<uint64_t>::na ;
+            int64_naflag = true ;
+        }
         return res ;
     } 
         

@@ -84,11 +84,12 @@ SEXP summary__prod( const int64::LongVector<LONG>& data){
     LONG res = data.get(0) ;
     if( res == na ) return int64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
-    
+    int64_naflag = false ;
     for( int i=1; i<n; i++){
         res = times<LONG>( res, data.get(i) );
         if( res == na) break ;
     }
+    if( int64_naflag ) Rf_warning( "NAs introduced by overflow" ) ;
     return int64::internal::new_long<LONG>( res ) ;
 }
 
@@ -98,11 +99,14 @@ SEXP summary__sum( const int64::LongVector<LONG>& data){
     LONG res = data.get(0) ;
     if( res == na ) return int64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
+    int64_naflag = false ;
     
     for( int i=1; i<n; i++){
         res = plus<LONG>( res, data.get(i) ) ;
         if( res == na ) break ;
     }
+    if( int64_naflag ) Rf_warning( "NAs introduced by overflow" ) ;
+    
     return int64::internal::new_long<LONG>( res ) ;
 }
 
