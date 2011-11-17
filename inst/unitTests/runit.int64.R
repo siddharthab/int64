@@ -129,3 +129,12 @@ test.na <- function(){
     options( old.op )
 }
 
+test.dataframe <- function(){
+    df <- data.frame( a = 1:4 )
+    df$b <- as.int64( 1:4 )
+    df$c <- as.uint64( 1:4 )
+    
+    checkEquals( df$b[3:4], df$b[1:2] + 2L )
+    checkEquals( df$c[3:4], df$c[1:2] + 2L )
+}
+
