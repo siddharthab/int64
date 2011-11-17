@@ -26,7 +26,7 @@ namespace int64{
       
 template <typename LONG>
 SEXP abs( SEXP x ){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     LONG tmp ;
@@ -43,7 +43,7 @@ SEXP abs<uint64_t>( SEXP x ){ return x ; }
      
 template <typename LONG>
 SEXP sign( SEXP x){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     LONG tmp ;
@@ -63,7 +63,7 @@ SEXP sign( SEXP x){
 
 template <typename LONG>
 SEXP cummax( SEXP x){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     int64::LongVector<LONG> res(n, na) ;
@@ -82,7 +82,7 @@ SEXP cummax( SEXP x){
 
 template <typename LONG>
 SEXP cummin( SEXP x){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     int64::LongVector<LONG> res(n, na) ;
@@ -101,7 +101,7 @@ SEXP cummin( SEXP x){
 
 template <typename LONG>
 SEXP cumprod( SEXP x){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     int64::LongVector<LONG> res(n, na) ;
@@ -121,7 +121,7 @@ SEXP cumprod( SEXP x){
 
 template <typename LONG>
 SEXP cumsum( SEXP x){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int64::LongVector<LONG> data(x) ;
     int n = data.size() ;
     int64::LongVector<LONG> res(x) ;

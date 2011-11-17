@@ -29,17 +29,12 @@
 namespace int64{
     
     template <class LONG>
-    class LongVector {
+    class LongVector : public internal::long_traits<LONG> {
     private :
         SEXP data ;
         
     public:
-        static LONG min ; 
-        static LONG max ;
-        static LONG na  ;
-        static int na_hb ;
-        static int na_lb ;
-            
+        
         LongVector(SEXP x) : data(x) {
             if( Rf_inherits( x, internal::get_class<LONG>().c_str() ) ){
                 data = x ;
@@ -56,7 +51,7 @@ namespace int64{
                             for( int i=0; i<n; i++){
                                 if( p_i_x[i] == NA_INTEGER){                   
                                     SET_VECTOR_ELT( y, i, int64::internal::int2(
-                                        na_hb, na_lb    
+                                        na_hb() , na_lb()    
                                     ) ) ;
                                 } else {
                                     tmp = (LONG) p_i_x[i] ;
@@ -80,7 +75,7 @@ namespace int64{
                             for( int i=0; i<n; i++){
                                 if( p_i_x[i] == NA_INTEGER){                   
                                     SET_VECTOR_ELT( y, i, int64::internal::int2(
-                                        na_hb, na_lb    
+                                        na_hb(), na_lb()    
                                     ) ) ;
                                 } else {
                                     tmp = (LONG) p_i_x[i] ;
@@ -104,7 +99,7 @@ namespace int64{
                             for( int i=0; i<n; i++){
                                 if( R_IsNA(p_d_x[i]) ){
                                     SET_VECTOR_ELT( y, i, int64::internal::int2(
-                                        na_hb, na_lb    
+                                        na_hb(), na_lb()    
                                     ) ) ;
                                 } else {
                                     tmp = (LONG) p_d_x[i] ;
@@ -128,7 +123,7 @@ namespace int64{
                             for( int i=0; i<n; i++){
                                 if( !strcmp("NA", CHAR(STRING_ELT(x,i)) ) ){
                                     SET_VECTOR_ELT( y, i, int64::internal::int2(
-                                        na_hb, na_lb    
+                                        na_hb(), na_lb()    
                                     ) ) ;
                                 } else{ 
                                     tmp = internal::read_string<LONG>( CHAR(STRING_ELT(x,i)) ) ;
@@ -240,15 +235,18 @@ namespace int64{
             int* p_res = INTEGER(res) ;
             for( int i=0; i<n; i++){
                 p = INTEGER(VECTOR_ELT(data, i)) ;
-                p_res[i] = p[0] == na_hb && p[1] == na_lb ;
+                p_res[i] = p[0] == na_hb() && p[1] == na_lb() ;
             }
             UNPROTECT(1) ; // res
             return res; 
         }
         
+        inline int na_lb(){ return internal::long_traits<LONG>::na_lb(); }
+        inline int na_hb(){ return internal::long_traits<LONG>::na_hb(); }
+        
+        
     } ;
 
-    
 }
 
 

@@ -36,7 +36,7 @@ SEXP int64_as_character( SEXP x){
     LONG tmp ;
     for( int i=0; i<n; i++){
         tmp = data.get(i) ;
-        if( tmp == int64::LongVector<LONG>::na ){
+        if( tmp == long_traits<LONG>::na() ){
             stream << "NA" ;
         } else {
             stream << data.get(i) ;

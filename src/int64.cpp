@@ -23,18 +23,6 @@
 
 namespace int64{
     
-    template<> int64_t LongVector<int64_t>::min = std::numeric_limits<int64_t>::min() + 1;
-    template<> int64_t LongVector<int64_t>::max = std::numeric_limits<int64_t>::max() ;
-    template<> int64_t LongVector<int64_t>::na  = std::numeric_limits<int64_t>::min() ;
-    template<> int LongVector<int64_t>::na_hb = int64::internal::get_high_bits<int64_t>( int64::LongVector<int64_t>::na ) ;
-    template<> int LongVector<int64_t>::na_lb = int64::internal::get_low_bits<int64_t>(  int64::LongVector<int64_t>::na ) ;
-    
-    template<> uint64_t LongVector<uint64_t>::min = 0 ;
-    template<> uint64_t LongVector<uint64_t>::max = std::numeric_limits<uint64_t>::max() - 1 ;
-    template<> uint64_t LongVector<uint64_t>::na  = std::numeric_limits<uint64_t>::max() ;
-    template<> int LongVector<uint64_t>::na_hb = int64::internal::get_high_bits<uint64_t>( int64::LongVector<uint64_t>::na ) ;
-    template<> int LongVector<uint64_t>::na_lb = int64::internal::get_low_bits<uint64_t>(  int64::LongVector<uint64_t>::na ) ;
-    
     namespace internal{
         
         
@@ -150,13 +138,13 @@ extern "C" SEXP int64_limits( SEXP type_ ){
         return res ;
     } else if( ! strcmp( type, "int64" ) ){
         return int64::internal::new_long_2<int64_t>( 
-            int64::LongVector<int64_t>::min , 
-            int64::LongVector<int64_t>::max 
+            int64::internal::long_traits<int64_t>::min() , 
+            int64::internal::long_traits<int64_t>::max() 
             ) ;
     } else if( !strcmp( type, "uint64" ) ){
         return int64::internal::new_long_2<uint64_t>( 
-            int64::LongVector<uint64_t>::min, 
-            int64::LongVector<uint64_t>::max
+            int64::internal::long_traits<uint64_t>::min(), 
+            int64::internal::long_traits<uint64_t>::max()
             ) ;                                    
     }
     

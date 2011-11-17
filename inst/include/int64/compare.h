@@ -33,7 +33,7 @@ template <typename T> inline bool greater_than_or_equal(T x1,T x2){ return x1 >=
         
 template <typename LONG, bool Fun(LONG x1, LONG x2)>
 SEXP compare_long_long(SEXP e1, SEXP e2){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int64::LongVector<LONG> x1( e1 ) ;
     int64::LongVector<LONG> x2( e2 ) ;
     

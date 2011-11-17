@@ -26,7 +26,7 @@ namespace int64{
 
 template <typename LONG>
 SEXP summary__min( const int64::LongVector<LONG>& data){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     LONG x = data.get(0) ;
     if( x == na ) return int64::internal::new_long<LONG>( na ) ;
     LONG tmp = x ;
@@ -44,7 +44,7 @@ SEXP summary__min( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__max( const int64::LongVector<LONG>& data){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     LONG x = data.get(0) ;
     LONG tmp = x ;
     int n = data.size() ;
@@ -61,7 +61,7 @@ SEXP summary__max( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__range( const int64::LongVector<LONG>& data){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     LONG min = data.get(0) ;
     LONG max = data.get(0) ;
     if( min == na ) return int64::internal::new_long_2<LONG>( na, na) ;
@@ -80,7 +80,7 @@ SEXP summary__range( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__prod( const int64::LongVector<LONG>& data){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     LONG res = data.get(0) ;
     if( res == na ) return int64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
@@ -95,7 +95,7 @@ SEXP summary__prod( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__sum( const int64::LongVector<LONG>& data){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     LONG res = data.get(0) ;
     if( res == na ) return int64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
@@ -112,7 +112,7 @@ SEXP summary__sum( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__any( const int64::LongVector<LONG>& data){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int n = data.size() ;
     int res = 0 ;
     bool seen_na = false ;
@@ -137,7 +137,7 @@ SEXP summary__any( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP summary__all( const int64::LongVector<LONG>& data){
-    const LONG na = int64::LongVector<LONG>::na ;
+    const LONG na = long_traits<LONG>::na() ;
     int n = data.size() ;
     int res = 1 ;
     LONG tmp ;
