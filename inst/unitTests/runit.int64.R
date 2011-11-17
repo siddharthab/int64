@@ -117,3 +117,15 @@ test.names <- function(){
     
 }
 
+
+test.na <- function(){
+    old.op <- options( warn = 2 )
+    checkException( as.int64( "abcd12434" ) )
+    checkException( as.uint64( "abcd12434" ) )
+    
+    checkEquals( as.int64("1234"), as.int64(1234))
+    checkEquals( as.uint64("1234"), as.uint64(1234))
+    
+    options( old.op )
+}
+
