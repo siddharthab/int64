@@ -219,7 +219,6 @@ namespace int64{
             for( int i=0; i<n; i++){
                 x[i] = get(i) ;
             }
-            // FIXME: deal with decreasing
             if( decreasing ){
                 std::sort( x.begin(), x.end(), std::greater<LONG>() ) ;
             } else {
