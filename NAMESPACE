@@ -16,4 +16,6 @@ export(
 S3method( format, int64 )
 S3method( format, uint64 )
 
+S3method( as.data.frame , int64 )
+S3method( as.data.frame , uint64 )
 
