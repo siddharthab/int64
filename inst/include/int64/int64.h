@@ -62,8 +62,10 @@ namespace int64{
     }
 }
 
-
+#if defined(BUILDING_INT64)
 #include <int64/routines.h>
+#endif 
+
 #include <int64/arith.h>
 #include <int64/compare.h>
 #include <int64/summary.h>
