@@ -23,12 +23,11 @@
 
 namespace int64{
     namespace internal {
-        SEXP int2(int,int) ;
-        
         bool int64_naflag = false ;
     }
 }
 
+#include <int64/int2.h>
 #include <int64/read_string_forward.h>
 #include <int64/get_long.h>
 #include <int64/get_bits.h>

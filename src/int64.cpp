@@ -18,6 +18,8 @@
 // You should have received a copy of the GNU General Public License
 // along with int64.  If not, see <http://www.gnu.org/licenses/>.
 
+#define BUILDING_INT64
+
 #include <int64.h>
 #include <limits>
 
@@ -27,14 +29,6 @@ namespace int64{
         
         
         /* tool to make an int vector with two ints */
-        SEXP int2( int x, int y ){
-            SEXP res = PROTECT( Rf_allocVector(INTSXP, 2) ) ;
-            int* p = INTEGER(res) ;
-            p[0] = x;
-            p[1] = y ;
-            UNPROTECT(1) ;
-            return res ;
-        }
         
         SEXP int64_format_binary__standard(SEXP x){
             int n = Rf_length(x) ;
