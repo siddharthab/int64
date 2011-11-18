@@ -144,21 +144,21 @@ SEXP cumsum( SEXP x){
 template <typename LONG>
 SEXP math( const char* op, SEXP x ){
     
-    if( !strcmp( op, "abs" ) ){
+    if( !strncmp( op, "abs", 3 ) ){
         return abs<LONG>(x) ;
-    } else if( !strcmp(op, "sign") ) {
+    } else if( !strncmp(op, "sign", 4) ) {
         return sign<LONG>(x) ;
-    } else if( !strcmp( op, "trunc" ) ){
+    } else if( !strncmp( op, "trunc", 5 ) ){
         return x ;
-    } else if( !strcmp( op, "floor" ) ){
+    } else if( !strncmp( op, "floor", 5) ){
         return x ;   
-    } else if( !strcmp( op, "cummax" ) ){
+    } else if( !strncmp( op, "cummax", 6 ) ){
         return cummax<LONG>( x ) ;
-    } else if( !strcmp( op, "cummin" ) ){
+    } else if( !strncmp( op, "cummin", 6 ) ){
         return cummin<LONG>( x ) ;
-    } else if( !strcmp( op, "cumprod" ) ){
+    } else if( !strncmp( op, "cumprod", 7 ) ){
         return cumprod<LONG>( x ) ;
-    } else if( !strcmp( op, "cumsum" ) ){
+    } else if( !strncmp( op, "cumsum", 6 ) ){
         return cumsum<LONG>( x ) ;   
     }
     

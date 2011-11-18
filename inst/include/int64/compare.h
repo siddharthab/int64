@@ -82,19 +82,19 @@ SEXP compare_long_long(SEXP e1, SEXP e2){
 
 template <typename LONG>
 SEXP int64_compare(const char* op, SEXP e1, SEXP e2){
-    if( ! strcmp(op, "==") ){
+    if( ! strncmp(op, "==", 2) ){
         return int64::internal::compare_long_long<LONG,  int64::internal::equals<LONG> >( e1, e2) ;
-    } else if( ! strcmp( op, "!=" ) ) {
+    } else if( ! strncmp( op, "!=", 2 ) ) {
         return int64::internal::compare_long_long<LONG,  int64::internal::not_equals<LONG> >( e1, e2) ;
-    } else if( ! strcmp( op, "<" ) ) {
-        return int64::internal::compare_long_long<LONG,  int64::internal::lower_than<LONG> >( e1, e2) ;
-    } else if( ! strcmp( op, ">" ) ) {
-         return int64::internal::compare_long_long<LONG,  int64::internal::greater_than<LONG> >( e1, e2) ;
-    } else if( ! strcmp( op, "<=" ) ) {
+    } else if( ! strncmp( op, "<=", 2 ) ) {
         return int64::internal::compare_long_long<LONG,  int64::internal::lower_than_or_equal<LONG> >( e1, e2) ;
-    } else if( ! strcmp( op, ">=" ) ) {
+    } else if( ! strncmp( op, ">=", 2 ) ) {
         return int64::internal::compare_long_long<LONG,  int64::internal::greater_than_or_equal<LONG> >( e1, e2) ;
-    } 
+    } else if( ! strncmp( op, "<", 1 ) ) {
+        return int64::internal::compare_long_long<LONG,  int64::internal::lower_than<LONG> >( e1, e2) ;
+    } else if( ! strncmp( op, ">", 1 ) ) {
+         return int64::internal::compare_long_long<LONG,  int64::internal::greater_than<LONG> >( e1, e2) ;
+    }
     Rf_error( "unknown operator" ) ;
     return R_NilValue ;
 }

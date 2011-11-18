@@ -130,18 +130,18 @@ extern "C" SEXP int64_summary_int64(SEXP generic, SEXP x, SEXP unsign){
 extern "C" SEXP int64_limits( SEXP type_ ){
     const char* type = CHAR(STRING_ELT(type_, 0) ) ;
     
-    if( !strcmp( type, "integer" ) ){                                      
+    if( !strncmp( type, "integer", 7 ) ){                                      
         SEXP res = PROTECT( Rf_allocVector(INTSXP, 2 ) ) ;
         INTEGER(res)[0] = std::numeric_limits<int>::min() + 1 ;
         INTEGER(res)[1] = std::numeric_limits<int>::max() ;
         UNPROTECT(1) ;
         return res ;
-    } else if( ! strcmp( type, "int64" ) ){
+    } else if( ! strncmp( type, "int64", 5 ) ){
         return int64::internal::new_long_2<int64_t>( 
             int64::internal::long_traits<int64_t>::min() , 
             int64::internal::long_traits<int64_t>::max() 
             ) ;
-    } else if( !strcmp( type, "uint64" ) ){
+    } else if( !strncmp( type, "uint64", 6 ) ){
         return int64::internal::new_long_2<uint64_t>( 
             int64::internal::long_traits<uint64_t>::min(), 
             int64::internal::long_traits<uint64_t>::max()
@@ -183,7 +183,7 @@ extern "C" SEXP int64_signif( SEXP s_, SEXP digits_, SEXP len_){
     
     SEXP res = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
     for( int i=0; i<n; i++){
-        if( !strcmp( CHAR(STRING_ELT(s_, i)), "NA" ) || digits[i] > len[i] ){
+        if( !strncmp( CHAR(STRING_ELT(s_, i)), "NA", 2 ) || digits[i] > len[i] ){
             SET_STRING_ELT( res, i, STRING_ELT( s_, i ) ) ;    
         } else {
             s = CHAR(STRING_ELT(s_, i ));

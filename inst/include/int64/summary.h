@@ -166,19 +166,19 @@ template <typename LONG>
 SEXP int64_summary(const char* op, SEXP x){
     int64::LongVector<LONG> data( x ) ;
     
-    if( ! strcmp(op, "min") ){
+    if( ! strncmp(op, "min", 3) ){
         return int64::internal::summary__min<LONG>( data ) ;
-    } else if( !strcmp(op, "max") ){
+    } else if( !strncmp(op, "max", 3) ){
         return int64::internal::summary__max<LONG>( data ) ;
-    } else if( !strcmp(op, "range" ) ){
+    } else if( !strncmp(op, "range", 5 ) ){
         return int64::internal::summary__range<LONG>( data ) ;
-    } else if( !strcmp(op, "prod") ){
+    } else if( !strncmp(op, "prod", 4) ){
         return int64::internal::summary__prod<LONG>( data ) ;
-    } else if( !strcmp(op, "sum" ) ) {
+    } else if( !strncmp(op, "sum", 3 ) ) {
         return int64::internal::summary__sum<LONG>( data ) ;
-    } else if( !strcmp(op, "any" ) ){
+    } else if( !strncmp(op, "any", 3 ) ){
         return int64::internal::summary__any<LONG>( data ) ;
-    } else if( !strcmp(op, "all") ){
+    } else if( !strncmp(op, "all", 3) ){
         return int64::internal::summary__all<LONG>( data ) ;
     }
     Rf_error( "unknown operator" ) ;

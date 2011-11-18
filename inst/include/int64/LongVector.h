@@ -121,7 +121,7 @@ namespace int64{
                             int hb, lb ;
                             LONG tmp ;
                             for( int i=0; i<n; i++){
-                                if( !strcmp("NA", CHAR(STRING_ELT(x,i)) ) ){
+                                if( !strncmp("NA", CHAR(STRING_ELT(x,i)) , 2) ){
                                     SET_VECTOR_ELT( y, i, int64::internal::int2(
                                         na_hb(), na_lb()    
                                     ) ) ;

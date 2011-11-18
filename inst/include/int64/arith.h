@@ -131,19 +131,19 @@ SEXP arith_long_long(SEXP e1, SEXP e2){
 
     template <typename LONG>
     SEXP int64_arith__impl( const char* op, SEXP e1, SEXP e2){
-        if( ! strcmp(op, "+") ){
+        if( ! strncmp(op, "+", 1) ){
             return int64::internal::arith_long_long<LONG, int64::internal::plus<LONG> >( e1, e2) ;
-        } else if( ! strcmp( op, "-" ) ) {
+        } else if( ! strncmp( op, "-", 1 ) ) {
             return int64::internal::arith_long_long<LONG, int64::internal::minus<LONG> >( e1, e2) ;
-        } else if( ! strcmp( op, "*" ) ) {
+        } else if( ! strncmp( op, "*", 1) ) {
             return int64::internal::arith_long_long<LONG, int64::internal::times<LONG> >( e1, e2) ;
-        } else if( ! strcmp( op, "^" ) ) {
+        } else if( ! strncmp( op, "^", 1 ) ) {
              Rf_error( "pow not implemented for long type" ) ;
-        } else if( ! strcmp( op, "/" ) ) {
+        } else if( ! strncmp( op, "/", 1 ) ) {
             return int64::internal::arith_long_long<LONG, int64::internal::divide<LONG> >( e1, e2) ;
-        } else if( ! strcmp( op, "%%" ) ) {
+        } else if( ! strncmp( op, "%%", 2 ) ) {
             return int64::internal::arith_long_long<LONG, int64::internal::modulo<LONG> >( e1, e2) ;
-        } else if( ! strcmp( op, "%/%" ) ) {
+        } else if( ! strncmp( op, "%/%", 3 ) ) {
             return int64::internal::arith_long_long<LONG, int64::internal::int_div<LONG> >( e1, e2) ;
         } 
         Rf_error( "unknown operator" ) ;
