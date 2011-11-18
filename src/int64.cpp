@@ -27,9 +27,6 @@ namespace int64{
     
     namespace internal{
         
-        
-        /* tool to make an int vector with two ints */
-        
         SEXP int64_format_binary__standard(SEXP x){
             int n = Rf_length(x) ;
             SEXP res = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
