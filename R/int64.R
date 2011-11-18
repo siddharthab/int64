@@ -214,12 +214,7 @@ setMethod( "as.character", "uint64", function(x,...){
   .Call( int64_as_character_int64, x, TRUE)  
 })
 setGeneric("as.data.frame")
-as.data.frame.int64 <- as.data.frame.uint64 <- function(x,row.names = NULL, optional = FALSE, ...){
-   res <- data.frame( x =  seq_len(length(x)) )
-   names(res) <- deparse( substitute(x ) )
-   res[[1L]] <- x
-   res
-}
+as.data.frame.int64 <- as.data.frame.uint64 <- as.data.frame.vector
 setMethod( "as.data.frame", "int64" , as.data.frame.int64  )
 setMethod( "as.data.frame", "uint64", as.data.frame.uint64 )
          
