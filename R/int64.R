@@ -213,17 +213,10 @@ setMethod( "as.character", "int64", function(x,...){
 setMethod( "as.character", "uint64", function(x,...){
   .Call( int64_as_character_int64, x, TRUE)  
 })
-setGeneric("as.data.frame")
 as.data.frame.int64 <- as.data.frame.uint64 <- as.data.frame.vector
-setMethod( "as.data.frame", "int64" , as.data.frame.int64  )
-setMethod( "as.data.frame", "uint64", as.data.frame.uint64 )
-         
 format.int64 <- format.uint64 <- function(x, ...){
     as.character(x)   
 }
-setGeneric("format")
-setMethod( "format", "int64", format.int64 )
-setMethod( "format", "uint64", format.uint64 )
 
 numeric_limits <- function( type ){
     .Call( int64_limits, type )

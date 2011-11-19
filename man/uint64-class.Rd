@@ -12,11 +12,9 @@
 \alias{as.character,uint64-method}
 \alias{names,uint64-method}
 \alias{names<-,uint64-method}
-\alias{as.data.frame,uint64-method}
 \alias{Compare,ANY,uint64-method}
 \alias{Compare,uint64,ANY-method}
 \alias{Compare,uint64,uint64-method}
-\alias{format,uint64-method}
 \alias{length,uint64-method}
 \alias{show,uint64-method}
 \alias{Summary,uint64-method}
@@ -52,11 +50,9 @@ Class \code{"\linkS4class{vector}"}, by class "list", distance 2.
     \item{Arith}{\code{signature(e1 = "uint64", e2 = "ANY")}: ... }
     \item{Arith}{\code{signature(e1 = "uint64", e2 = "uint64")}: ... }
     \item{as.character}{\code{signature(x = "uint64")}: ... }
-    \item{as.data.frame}{\code{signature(x = "uint64")}: ... }
     \item{Compare}{\code{signature(e1 = "ANY", e2 = "uint64")}: ... }
     \item{Compare}{\code{signature(e1 = "uint64", e2 = "ANY")}: ... }
     \item{Compare}{\code{signature(e1 = "uint64", e2 = "uint64")}: ... }
-    \item{format}{\code{signature(x = "uint64")}: ... }
     \item{length}{\code{signature(x = "uint64")}: ... }
     \item{Summary}{\code{signature(x = "uint64")}: ... }
     \item{Math}{\code{signature(x = "uint64")}: ... }
