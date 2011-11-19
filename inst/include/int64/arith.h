@@ -28,11 +28,11 @@
 # define GOODIPROD(x, y, z) ((long double) (x) * (long double) (y) == (z))
 
 
-namespace int64{
+namespace Rint64{
     namespace internal{
 
 template <typename T> inline T plus(T x1,T x2){ 
-    const T na = int64::LongVector<T>::na() ;
+    const T na = Rint64::LongVector<T>::na() ;
     if( x1 == na || x2 == na ){
         return na ;
     }
@@ -44,7 +44,7 @@ template <typename T> inline T plus(T x1,T x2){
     return na ;
 }        
 template <typename T> inline T minus(T x1,T x2){ 
-    const T na = int64::LongVector<T>::na() ;
+    const T na = Rint64::LongVector<T>::na() ;
     if( x1 == na || x2 == na){
         return na ;
     }
@@ -56,12 +56,12 @@ template <typename T> inline T minus(T x1,T x2){
     return na ;
 }
 template <> inline uint64_t minus<uint64_t>( uint64_t x1, uint64_t x2){
-    const uint64_t na = int64::LongVector<uint64_t>::na() ;
+    const uint64_t na = Rint64::LongVector<uint64_t>::na() ;
     if( x1 == na || x2 == na || x2 > x1) return na ;
     return x1 - x2 ;
 }
 template <typename T> inline T times(T x1,T x2){ 
-    const T na = int64::LongVector<T>::na() ;
+    const T na = Rint64::LongVector<T>::na() ;
     if( x1 == na || x2 == na){
         return na ;
     }
@@ -73,21 +73,21 @@ template <typename T> inline T times(T x1,T x2){
     return na ;
 }        
 template <typename T> inline T divide(T x1,T x2){ 
-    const T na = int64::LongVector<T>::na() ;
+    const T na = Rint64::LongVector<T>::na() ;
     if( x1 == na || x2 == na ){
         return na ;
     }
     return x1/x2 ;
 }        
 template <typename T> inline T modulo(T x1,T x2){ 
-    const T na = int64::LongVector<T>::na() ;
+    const T na = Rint64::LongVector<T>::na() ;
     if( x1 == na || x2 == na ){
         return na ;
     }
     return x1 % x2 ;
 }        
 template <typename T> inline T int_div(T x1,T x2){ 
-    const T na = int64::LongVector<T>::na() ;
+    const T na = Rint64::LongVector<T>::na() ;
     if( x1 == na || x2 == na ){
         return na ;
     }
@@ -96,14 +96,14 @@ template <typename T> inline T int_div(T x1,T x2){
         
 template <typename LONG, LONG Fun(LONG x1, LONG x2)>
 SEXP arith_long_long(SEXP e1, SEXP e2){
-    int64::LongVector<LONG> x1( e1 ) ;
-    int64::LongVector<LONG> x2( e2 ) ;
+    Rint64::LongVector<LONG> x1( e1 ) ;
+    Rint64::LongVector<LONG> x2( e2 ) ;
     int64_naflag = false ;
     int n1 = x1.size(), n2 = x2.size();
     LONG tmp ;
     int i1 = 0, i2 = 0, i = 0 ;
     int n = (n1>n2) ? n1 : n2 ;
-    int64::LongVector<LONG> res(n) ;
+    Rint64::LongVector<LONG> res(n) ;
     
     if( n1 == n2 ){
         for( i=0; i<n1; i++){
@@ -132,25 +132,25 @@ SEXP arith_long_long(SEXP e1, SEXP e2){
     template <typename LONG>
     SEXP int64_arith__impl( const char* op, SEXP e1, SEXP e2){
         if( ! strncmp(op, "+", 1) ){
-            return int64::internal::arith_long_long<LONG, int64::internal::plus<LONG> >( e1, e2) ;
+            return Rint64::internal::arith_long_long<LONG, Rint64::internal::plus<LONG> >( e1, e2) ;
         } else if( ! strncmp( op, "-", 1 ) ) {
-            return int64::internal::arith_long_long<LONG, int64::internal::minus<LONG> >( e1, e2) ;
+            return Rint64::internal::arith_long_long<LONG, Rint64::internal::minus<LONG> >( e1, e2) ;
         } else if( ! strncmp( op, "*", 1) ) {
-            return int64::internal::arith_long_long<LONG, int64::internal::times<LONG> >( e1, e2) ;
+            return Rint64::internal::arith_long_long<LONG, Rint64::internal::times<LONG> >( e1, e2) ;
         } else if( ! strncmp( op, "^", 1 ) ) {
              Rf_error( "pow not implemented for long type" ) ;
         } else if( ! strncmp( op, "/", 1 ) ) {
-            return int64::internal::arith_long_long<LONG, int64::internal::divide<LONG> >( e1, e2) ;
+            return Rint64::internal::arith_long_long<LONG, Rint64::internal::divide<LONG> >( e1, e2) ;
         } else if( ! strncmp( op, "%%", 2 ) ) {
-            return int64::internal::arith_long_long<LONG, int64::internal::modulo<LONG> >( e1, e2) ;
+            return Rint64::internal::arith_long_long<LONG, Rint64::internal::modulo<LONG> >( e1, e2) ;
         } else if( ! strncmp( op, "%/%", 3 ) ) {
-            return int64::internal::arith_long_long<LONG, int64::internal::int_div<LONG> >( e1, e2) ;
+            return Rint64::internal::arith_long_long<LONG, Rint64::internal::int_div<LONG> >( e1, e2) ;
         } 
         Rf_error( "unknown operator" ) ;
         return R_NilValue ; 
     }
     } // namespace internal
     
-} // namespace int64
+} // namespace Rint64
 
 #endif

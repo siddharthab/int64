@@ -21,7 +21,7 @@
 #ifndef int64__get_bits__h
 #define int64__get_bits__h
 
-namespace int64{
+namespace Rint64{
     namespace internal{
 
 template <typename T64>
@@ -36,5 +36,5 @@ inline int get_high_bits( T64 x){
 
     } // namespace internal
     
-} // namespace int64
+} // namespace Rint64
 #endif

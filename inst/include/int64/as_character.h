@@ -24,12 +24,12 @@
 #include <iostream>
 #include <sstream>
 
-namespace int64{
+namespace Rint64{
     namespace internal{
 
 template <typename LONG>
 SEXP int64_as_character( SEXP x){
-    int64::LongVector<LONG> data( x ) ;
+    Rint64::LongVector<LONG> data( x ) ;
     int n = data.size() ; 
     SEXP res = PROTECT( Rf_allocVector( STRSXP, n) ) ;
     std::ostringstream stream ;
@@ -49,6 +49,6 @@ SEXP int64_as_character( SEXP x){
 }
         
     } // namespace internal
-} // namespace int64
+} // namespace Rint64
 
 #endif

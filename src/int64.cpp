@@ -23,7 +23,7 @@
 #include <int64.h>
 #include <limits>
 
-namespace int64{
+namespace Rint64{
     
     namespace internal{
         
@@ -36,7 +36,7 @@ namespace int64{
                 {
                     int* data = INTEGER(x) ;
                     for( int i=0; i<n; i++){
-                        SET_STRING_ELT( res, i, Rf_mkChar( int64::internal::format_binary__impl<int>( data[i] ) ) ) ;
+                        SET_STRING_ELT( res, i, Rf_mkChar( Rint64::internal::format_binary__impl<int>( data[i] ) ) ) ;
                     }
                     break ;
                 }
@@ -44,7 +44,7 @@ namespace int64{
                 {
                     double* p_x = REAL(x) ;
                     for( int i=0; i<n; i++){
-                        SET_STRING_ELT( res, i, Rf_mkChar( int64::internal::format_binary__impl<double>( p_x[i] ) ) );
+                        SET_STRING_ELT( res, i, Rf_mkChar( Rint64::internal::format_binary__impl<double>( p_x[i] ) ) );
                     }      
                     break ;
                 }
@@ -61,11 +61,11 @@ namespace int64{
 
 extern "C" SEXP int64_format_binary(SEXP x){
     if( Rf_inherits( x, "int64" ) ){
-        return int64::internal::int64_format_binary_long<int64_t>(x) ;
+        return Rint64::internal::int64_format_binary_long<int64_t>(x) ;
     } else if( Rf_inherits( x, "uint64" ) ){
-        return int64::internal::int64_format_binary_long<uint64_t>(x) ;
+        return Rint64::internal::int64_format_binary_long<uint64_t>(x) ;
     } else {
-        return int64::internal::int64_format_binary__standard(x);
+        return Rint64::internal::int64_format_binary__standard(x);
     }
     return R_NilValue ;
 }
@@ -73,18 +73,18 @@ extern "C" SEXP int64_format_binary(SEXP x){
 extern "C" SEXP int64_as_character_int64(SEXP x, SEXP unsign){
     bool is_unsigned = INTEGER(unsign)[0] ;
     if( is_unsigned ){
-        return int64::internal::int64_as_character<uint64_t>( x ) ;
+        return Rint64::internal::int64_as_character<uint64_t>( x ) ;
     } else {
-        return int64::internal::int64_as_character<int64_t>( x ) ;
+        return Rint64::internal::int64_as_character<int64_t>( x ) ;
     }
 }
 
 
 extern "C" SEXP int64_as_int64(SEXP x){
-    return int64::internal::as_long<int64_t>(x) ;
+    return Rint64::internal::as_long<int64_t>(x) ;
 }
 extern "C" SEXP int64_as_uint64(SEXP x){
-    return int64::internal::as_long<uint64_t>(x) ;
+    return Rint64::internal::as_long<uint64_t>(x) ;
 }
 
 extern "C" SEXP int64_arith_int64_int64(SEXP generic, SEXP e1, SEXP e2, SEXP unsign ) {
@@ -92,9 +92,9 @@ extern "C" SEXP int64_arith_int64_int64(SEXP generic, SEXP e1, SEXP e2, SEXP uns
     bool is_unsigned = INTEGER(unsign)[0] ;
     
     if( is_unsigned ){
-        return int64::internal::int64_arith__impl<uint64_t>(op, e1, e2 ) ;
+        return Rint64::internal::int64_arith__impl<uint64_t>(op, e1, e2 ) ;
     } else {
-        return int64::internal::int64_arith__impl<int64_t>(op, e1, e2 ) ;
+        return Rint64::internal::int64_arith__impl<int64_t>(op, e1, e2 ) ;
     }
 }
 
@@ -102,9 +102,9 @@ extern "C" SEXP int64_compare_int64_int64(SEXP generic, SEXP e1, SEXP e2, SEXP u
     const char* op = CHAR(STRING_ELT(generic, 0)) ;
     bool is_unsigned = INTEGER(unsign)[0]; 
     if( is_unsigned ){
-        return int64::internal::int64_compare<uint64_t>(op,e1,e2) ;
+        return Rint64::internal::int64_compare<uint64_t>(op,e1,e2) ;
     } else {
-        return int64::internal::int64_compare<int64_t>(op,e1,e2) ;
+        return Rint64::internal::int64_compare<int64_t>(op,e1,e2) ;
     }
 }
 
@@ -112,9 +112,9 @@ extern "C" SEXP int64_summary_int64(SEXP generic, SEXP x, SEXP unsign){
     const char* op = CHAR(STRING_ELT(generic, 0)) ;
     bool is_unsigned = INTEGER(unsign)[0] ;
     if( is_unsigned ){
-        return int64::internal::int64_summary<uint64_t>(op, x ) ;
+        return Rint64::internal::int64_summary<uint64_t>(op, x ) ;
     } else {
-        return int64::internal::int64_summary<int64_t>(op, x ) ;
+        return Rint64::internal::int64_summary<int64_t>(op, x ) ;
     }                                 
 }
 
@@ -128,14 +128,14 @@ extern "C" SEXP int64_limits( SEXP type_ ){
         UNPROTECT(1) ;
         return res ;
     } else if( ! strncmp( type, "int64", 5 ) ){
-        return int64::internal::new_long_2<int64_t>( 
-            int64::internal::long_traits<int64_t>::min() , 
-            int64::internal::long_traits<int64_t>::max() 
+        return Rint64::internal::new_long_2<int64_t>( 
+            Rint64::internal::long_traits<int64_t>::min() , 
+            Rint64::internal::long_traits<int64_t>::max() 
             ) ;
     } else if( !strncmp( type, "uint64", 6 ) ){
-        return int64::internal::new_long_2<uint64_t>( 
-            int64::internal::long_traits<uint64_t>::min(), 
-            int64::internal::long_traits<uint64_t>::max()
+        return Rint64::internal::new_long_2<uint64_t>( 
+            Rint64::internal::long_traits<uint64_t>::min(), 
+            Rint64::internal::long_traits<uint64_t>::max()
             ) ;                                    
     }
     
@@ -149,9 +149,9 @@ extern "C" SEXP int64_sort( SEXP x, SEXP unsign, SEXP decr ){
     bool decreasing = INTEGER(decr)[0] ;
     
     if( is_unsigned ){
-        return int64::LongVector<uint64_t>(x).sort(decreasing ) ;   
+        return Rint64::LongVector<uint64_t>(x).sort(decreasing ) ;   
     } else {
-        return int64::LongVector<int64_t>(x).sort(decreasing ) ;
+        return Rint64::LongVector<int64_t>(x).sort(decreasing ) ;
     }
 }
 
@@ -160,9 +160,9 @@ extern "C" SEXP int64_math( SEXP generic, SEXP x, SEXP unsign){
     const char* op = CHAR(STRING_ELT(generic, 0 ) ); 
     
     if( is_unsigned ){
-        return int64::internal::math<uint64_t>( op, x ) ;   
+        return Rint64::internal::math<uint64_t>( op, x ) ;   
     } else {
-        return int64::internal::math<int64_t>( op, x ) ;
+        return Rint64::internal::math<int64_t>( op, x ) ;
     }   
 }
 
@@ -191,9 +191,9 @@ extern "C" SEXP int64_signif( SEXP s_, SEXP digits_, SEXP len_){
 extern "C" SEXP int64_isna( SEXP x_, SEXP unsign ){
     bool is_unsigned = INTEGER(unsign)[0] ;
     if( is_unsigned ){
-        return int64::LongVector<uint64_t>( x_ ).is_na() ;    
+        return Rint64::LongVector<uint64_t>( x_ ).is_na() ;    
     } else {
-        return int64::LongVector<int64_t>( x_ ).is_na() ;
+        return Rint64::LongVector<int64_t>( x_ ).is_na() ;
     }
 }
 

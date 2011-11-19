@@ -21,7 +21,7 @@
 #ifndef int64__get_class__h
 #define int64__get_class__h
    
-namespace int64{
+namespace Rint64{
     namespace internal {
  
         template <typename T>

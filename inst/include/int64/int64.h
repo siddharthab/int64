@@ -21,7 +21,7 @@
 #ifndef int64__int64__h
 #define int64__int64__h
 
-namespace int64{
+namespace Rint64{
     namespace internal {
         bool int64_naflag = false ;
     }
@@ -39,13 +39,13 @@ namespace int64{
 #include <int64/as_long.h>
 #include <int64/as_character.h>
 
-namespace int64{
+namespace Rint64{
     namespace internal {
         
         template <typename LONG>
         SEXP new_long(LONG x){
             std::string klass = get_class<LONG>() ;
-            int64::LongVector<LONG> y(1) ;
+            Rint64::LongVector<LONG> y(1) ;
             y.set(0, x) ;
             return y ;
         }
@@ -53,7 +53,7 @@ namespace int64{
         template <typename LONG>
         SEXP new_long_2(LONG x, LONG y){
             std::string klass = get_class<LONG>() ;
-            int64::LongVector<LONG> z(2) ;
+            Rint64::LongVector<LONG> z(2) ;
             z.set(0, x ) ;
             z.set(1, y ) ;
             return z ;

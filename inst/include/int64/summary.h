@@ -21,14 +21,14 @@
 #ifndef int64__summary__h
 #define int64__summary__h
 
-namespace int64{
+namespace Rint64{
     namespace internal{
 
 template <typename LONG>
-SEXP summary__min( const int64::LongVector<LONG>& data){
+SEXP summary__min( const Rint64::LongVector<LONG>& data){
     const LONG na = long_traits<LONG>::na() ;
     LONG x = data.get(0) ;
-    if( x == na ) return int64::internal::new_long<LONG>( na ) ;
+    if( x == na ) return Rint64::internal::new_long<LONG>( na ) ;
     LONG tmp = x ;
     int n = data.size() ;
     for( int i=1; i<n; i++){
@@ -39,11 +39,11 @@ SEXP summary__min( const int64::LongVector<LONG>& data){
         }
         if( tmp < x ) x = tmp ;
     }
-    return int64::internal::new_long<LONG>( x ) ;
+    return Rint64::internal::new_long<LONG>( x ) ;
 }
 
 template <typename LONG>
-SEXP summary__max( const int64::LongVector<LONG>& data){
+SEXP summary__max( const Rint64::LongVector<LONG>& data){
     const LONG na = long_traits<LONG>::na() ;
     LONG x = data.get(0) ;
     LONG tmp = x ;
@@ -56,15 +56,15 @@ SEXP summary__max( const int64::LongVector<LONG>& data){
         }
         if( tmp > x ) x = tmp ;
     }
-    return int64::internal::new_long<LONG>( x ) ;
+    return Rint64::internal::new_long<LONG>( x ) ;
 }
 
 template <typename LONG>
-SEXP summary__range( const int64::LongVector<LONG>& data){
+SEXP summary__range( const Rint64::LongVector<LONG>& data){
     const LONG na = long_traits<LONG>::na() ;
     LONG min = data.get(0) ;
     LONG max = data.get(0) ;
-    if( min == na ) return int64::internal::new_long_2<LONG>( na, na) ;
+    if( min == na ) return Rint64::internal::new_long_2<LONG>( na, na) ;
     LONG tmp = min ;
     int n = data.size() ;
     for( int i=1; i<n; i++){
@@ -75,14 +75,14 @@ SEXP summary__range( const int64::LongVector<LONG>& data){
         if( tmp < min ) min = tmp ;
         if( tmp > max ) max = tmp ;
     }
-    return int64::internal::new_long_2<LONG>( min, max) ;
+    return Rint64::internal::new_long_2<LONG>( min, max) ;
 }
 
 template <typename LONG>
-SEXP summary__prod( const int64::LongVector<LONG>& data){
+SEXP summary__prod( const Rint64::LongVector<LONG>& data){
     const LONG na = long_traits<LONG>::na() ;
     LONG res = data.get(0) ;
-    if( res == na ) return int64::internal::new_long<LONG>( na ) ;
+    if( res == na ) return Rint64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
     int64_naflag = false ;
     for( int i=1; i<n; i++){
@@ -90,14 +90,14 @@ SEXP summary__prod( const int64::LongVector<LONG>& data){
         if( res == na) break ;
     }
     if( int64_naflag ) Rf_warning( "NAs introduced by overflow" ) ;
-    return int64::internal::new_long<LONG>( res ) ;
+    return Rint64::internal::new_long<LONG>( res ) ;
 }
 
 template <typename LONG>
-SEXP summary__sum( const int64::LongVector<LONG>& data){
+SEXP summary__sum( const Rint64::LongVector<LONG>& data){
     const LONG na = long_traits<LONG>::na() ;
     LONG res = data.get(0) ;
-    if( res == na ) return int64::internal::new_long<LONG>( na ) ;
+    if( res == na ) return Rint64::internal::new_long<LONG>( na ) ;
     int n = data.size() ;
     int64_naflag = false ;
     
@@ -107,11 +107,11 @@ SEXP summary__sum( const int64::LongVector<LONG>& data){
     }
     if( int64_naflag ) Rf_warning( "NAs introduced by overflow" ) ;
     
-    return int64::internal::new_long<LONG>( res ) ;
+    return Rint64::internal::new_long<LONG>( res ) ;
 }
 
 template <typename LONG>
-SEXP summary__any( const int64::LongVector<LONG>& data){
+SEXP summary__any( const Rint64::LongVector<LONG>& data){
     const LONG na = long_traits<LONG>::na() ;
     int n = data.size() ;
     int res = 0 ;
@@ -136,7 +136,7 @@ SEXP summary__any( const int64::LongVector<LONG>& data){
 }
 
 template <typename LONG>
-SEXP summary__all( const int64::LongVector<LONG>& data){
+SEXP summary__all( const Rint64::LongVector<LONG>& data){
     const LONG na = long_traits<LONG>::na() ;
     int n = data.size() ;
     int res = 1 ;
@@ -164,22 +164,22 @@ SEXP summary__all( const int64::LongVector<LONG>& data){
 
 template <typename LONG>
 SEXP int64_summary(const char* op, SEXP x){
-    int64::LongVector<LONG> data( x ) ;
+    Rint64::LongVector<LONG> data( x ) ;
     
     if( ! strncmp(op, "min", 3) ){
-        return int64::internal::summary__min<LONG>( data ) ;
+        return Rint64::internal::summary__min<LONG>( data ) ;
     } else if( !strncmp(op, "max", 3) ){
-        return int64::internal::summary__max<LONG>( data ) ;
+        return Rint64::internal::summary__max<LONG>( data ) ;
     } else if( !strncmp(op, "range", 5 ) ){
-        return int64::internal::summary__range<LONG>( data ) ;
+        return Rint64::internal::summary__range<LONG>( data ) ;
     } else if( !strncmp(op, "prod", 4) ){
-        return int64::internal::summary__prod<LONG>( data ) ;
+        return Rint64::internal::summary__prod<LONG>( data ) ;
     } else if( !strncmp(op, "sum", 3 ) ) {
-        return int64::internal::summary__sum<LONG>( data ) ;
+        return Rint64::internal::summary__sum<LONG>( data ) ;
     } else if( !strncmp(op, "any", 3 ) ){
-        return int64::internal::summary__any<LONG>( data ) ;
+        return Rint64::internal::summary__any<LONG>( data ) ;
     } else if( !strncmp(op, "all", 3) ){
-        return int64::internal::summary__all<LONG>( data ) ;
+        return Rint64::internal::summary__all<LONG>( data ) ;
     }
     Rf_error( "unknown operator" ) ;
     return R_NilValue ;
@@ -189,6 +189,6 @@ SEXP int64_summary(const char* op, SEXP x){
 
     } // namespace internal
     
-} // namespace int64
+} // namespace Rint64
 
 #endif

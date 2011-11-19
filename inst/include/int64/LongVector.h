@@ -26,7 +26,7 @@
 #include <vector>
 #include <algorithm>
 
-namespace int64{
+namespace Rint64{
     
     template <class LONG>
     class LongVector : public internal::long_traits<LONG> {
@@ -50,14 +50,14 @@ namespace int64{
                             int* p_i_x = INTEGER(x) ;
                             for( int i=0; i<n; i++){
                                 if( p_i_x[i] == NA_INTEGER){                   
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(
                                         na_hb() , na_lb()    
                                     ) ) ;
                                 } else {
                                     tmp = (LONG) p_i_x[i] ;
                                     hb = internal::get_high_bits<LONG>(tmp) ;
                                     lb = internal::get_low_bits<LONG>(tmp) ;
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(hb,lb) ) ;
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(hb,lb) ) ;
                                 }
                             }
                             UNPROTECT(1) ; // y
@@ -74,14 +74,14 @@ namespace int64{
                             int* p_i_x = INTEGER(x) ;
                             for( int i=0; i<n; i++){
                                 if( p_i_x[i] == NA_INTEGER){                   
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(
                                         na_hb(), na_lb()    
                                     ) ) ;
                                 } else {
                                     tmp = (LONG) p_i_x[i] ;
                                     hb = internal::get_high_bits<LONG>(tmp) ;
                                     lb = internal::get_low_bits<LONG>(tmp) ;
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(hb,lb) ) ;
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(hb,lb) ) ;
                                 }
                             }
                             UNPROTECT(1) ; // y
@@ -98,14 +98,14 @@ namespace int64{
                             double* p_d_x = REAL(x) ;
                             for( int i=0; i<n; i++){
                                 if( R_IsNA(p_d_x[i]) ){
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(
                                         na_hb(), na_lb()    
                                     ) ) ;
                                 } else {
                                     tmp = (LONG) p_d_x[i] ;
                                     hb = internal::get_high_bits<LONG>(tmp) ;
                                     lb = internal::get_low_bits<LONG>(tmp) ;
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(hb,lb) ) ;
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(hb,lb) ) ;
                                 }
                             }
                             UNPROTECT(1) ; // y
@@ -116,26 +116,26 @@ namespace int64{
                     case STRSXP:
                         {
                             int n = Rf_length(x) ;
-                            int64::internal::int64_naflag = false ;
+                            Rint64::internal::int64_naflag = false ;
                             SEXP y = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
                             int hb, lb ;
                             LONG tmp ;
                             for( int i=0; i<n; i++){
                                 if( !strncmp("NA", CHAR(STRING_ELT(x,i)) , 2) ){
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(
                                         na_hb(), na_lb()    
                                     ) ) ;
                                 } else{ 
                                     tmp = internal::read_string<LONG>( CHAR(STRING_ELT(x,i)) ) ;
                                     hb = internal::get_high_bits<LONG>(tmp) ;
                                     lb = internal::get_low_bits<LONG>(tmp) ;
-                                    SET_VECTOR_ELT( y, i, int64::internal::int2(hb,lb) ) ;
+                                    SET_VECTOR_ELT( y, i, Rint64::internal::int2(hb,lb) ) ;
                                 }
                             }
                             UNPROTECT(1) ; // y
                             data = y ;
                             R_PreserveObject(data) ;  
-                            if( int64::internal::int64_naflag ) {
+                            if( Rint64::internal::int64_naflag ) {
                                 Rf_warning( "NA introduced by overflow" ) ;
                             }
                             break ;        
@@ -149,7 +149,7 @@ namespace int64{
         }
         
         operator SEXP(){
-            std::string klass = int64::internal::get_class<LONG>() ;
+            std::string klass = Rint64::internal::get_class<LONG>() ;
             SEXP res = PROTECT( 
                 R_do_slot_assign( 
                     R_do_new_object( R_do_MAKE_CLASS( klass.c_str() ) ), 
@@ -162,7 +162,7 @@ namespace int64{
         LongVector(int n) : data(R_NilValue) {
             SEXP x = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
             for( int i=0; i<n; i++){
-                SET_VECTOR_ELT( x, i, int64::internal::int2(0,0) ) ;    
+                SET_VECTOR_ELT( x, i, Rint64::internal::int2(0,0) ) ;    
             }
             UNPROTECT(1) ; // x
             data = x ;
@@ -174,7 +174,7 @@ namespace int64{
             int hb = internal::get_high_bits<LONG>( value ) ;
             int lb = internal::get_low_bits<LONG>( value ) ;
             for( int i=0; i<n; i++){
-                SET_VECTOR_ELT( x, i, int64::internal::int2(hb,lb) ) ;    
+                SET_VECTOR_ELT( x, i, Rint64::internal::int2(hb,lb) ) ;    
             }
             UNPROTECT(1) ; // x
             data = x ;
@@ -186,9 +186,9 @@ namespace int64{
             SEXP x = PROTECT( Rf_allocVector( VECSXP, n ) ) ;
             int hb, lb ;
             for( int i=0; i<n; i++, ++start){
-                hb = int64::internal::get_high_bits<LONG>(*start) ;
-                lb = int64::internal::get_low_bits<LONG>(*start) ;
-                SET_VECTOR_ELT( x, i, int64::internal::int2(hb,lb) ) ;    
+                hb = Rint64::internal::get_high_bits<LONG>(*start) ;
+                lb = Rint64::internal::get_low_bits<LONG>(*start) ;
+                SET_VECTOR_ELT( x, i, Rint64::internal::int2(hb,lb) ) ;    
             }
             UNPROTECT(1) ; // x
             data = x ;
@@ -202,13 +202,13 @@ namespace int64{
         
         inline LONG get(int i) const {
             int* p = INTEGER(VECTOR_ELT(data,i)) ;
-            return int64::internal::get_long<LONG>( p[0], p[1] ) ;
+            return Rint64::internal::get_long<LONG>( p[0], p[1] ) ;
         }
         
         inline void set(int i, LONG x){
             int* p = INTEGER(VECTOR_ELT(data,i)) ;
-            p[0] = int64::internal::get_high_bits(x) ;
-            p[1] = int64::internal::get_low_bits(x) ;
+            p[0] = Rint64::internal::get_high_bits(x) ;
+            p[1] = Rint64::internal::get_low_bits(x) ;
         }
         
         inline int size() const { return Rf_length(data); }

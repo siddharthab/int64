@@ -21,7 +21,7 @@
 #ifndef int64_long_traits_h
 #define int64_long_traits_h
 
-namespace int64{
+namespace Rint64{
     namespace internal{
        
         template <typename LONG>

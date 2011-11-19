@@ -21,7 +21,7 @@
 #ifndef int64__binary__h
 #define int64__binary__h
 
-namespace int64{
+namespace Rint64{
     namespace internal{
 
         template <typename T>
@@ -44,7 +44,7 @@ namespace int64{
 
         template <typename LONG>
         SEXP int64_format_binary_long(SEXP x){
-            int64::LongVector<LONG> data(x) ;
+            Rint64::LongVector<LONG> data(x) ;
             int n = data.size() ; 
             
             SEXP res = PROTECT( Rf_allocVector( STRSXP, n ) ) ;
@@ -56,5 +56,5 @@ namespace int64{
         }
         
     } // namespace internal
-} // namespace int64
+} // namespace Rint64
 #endif

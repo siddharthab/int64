@@ -21,7 +21,7 @@
 #ifndef int64__compare__h
 #define int64__compare__h
 
-namespace int64{
+namespace Rint64{
     namespace internal{
 
 template <typename T> inline bool equals(T x1,T x2){ return x1 == x2 ; }        
@@ -34,8 +34,8 @@ template <typename T> inline bool greater_than_or_equal(T x1,T x2){ return x1 >=
 template <typename LONG, bool Fun(LONG x1, LONG x2)>
 SEXP compare_long_long(SEXP e1, SEXP e2){
     const LONG na = long_traits<LONG>::na() ;
-    int64::LongVector<LONG> x1( e1 ) ;
-    int64::LongVector<LONG> x2( e2 ) ;
+    Rint64::LongVector<LONG> x1( e1 ) ;
+    Rint64::LongVector<LONG> x2( e2 ) ;
     
     int n1 = x1.size(), n2 = x2.size() ;
     LONG tmp ;
@@ -83,17 +83,17 @@ SEXP compare_long_long(SEXP e1, SEXP e2){
 template <typename LONG>
 SEXP int64_compare(const char* op, SEXP e1, SEXP e2){
     if( ! strncmp(op, "==", 2) ){
-        return int64::internal::compare_long_long<LONG,  int64::internal::equals<LONG> >( e1, e2) ;
+        return Rint64::internal::compare_long_long<LONG,  Rint64::internal::equals<LONG> >( e1, e2) ;
     } else if( ! strncmp( op, "!=", 2 ) ) {
-        return int64::internal::compare_long_long<LONG,  int64::internal::not_equals<LONG> >( e1, e2) ;
+        return Rint64::internal::compare_long_long<LONG,  Rint64::internal::not_equals<LONG> >( e1, e2) ;
     } else if( ! strncmp( op, "<=", 2 ) ) {
-        return int64::internal::compare_long_long<LONG,  int64::internal::lower_than_or_equal<LONG> >( e1, e2) ;
+        return Rint64::internal::compare_long_long<LONG,  Rint64::internal::lower_than_or_equal<LONG> >( e1, e2) ;
     } else if( ! strncmp( op, ">=", 2 ) ) {
-        return int64::internal::compare_long_long<LONG,  int64::internal::greater_than_or_equal<LONG> >( e1, e2) ;
+        return Rint64::internal::compare_long_long<LONG,  Rint64::internal::greater_than_or_equal<LONG> >( e1, e2) ;
     } else if( ! strncmp( op, "<", 1 ) ) {
-        return int64::internal::compare_long_long<LONG,  int64::internal::lower_than<LONG> >( e1, e2) ;
+        return Rint64::internal::compare_long_long<LONG,  Rint64::internal::lower_than<LONG> >( e1, e2) ;
     } else if( ! strncmp( op, ">", 1 ) ) {
-         return int64::internal::compare_long_long<LONG,  int64::internal::greater_than<LONG> >( e1, e2) ;
+         return Rint64::internal::compare_long_long<LONG,  Rint64::internal::greater_than<LONG> >( e1, e2) ;
     }
     Rf_error( "unknown operator" ) ;
     return R_NilValue ;
@@ -102,6 +102,6 @@ SEXP int64_compare(const char* op, SEXP e1, SEXP e2){
 
     } // namespace internal
     
-} // namespace int64
+} // namespace Rint64
 
 #endif

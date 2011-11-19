@@ -21,13 +21,13 @@
 #ifndef int64__read_string_forward_h
 #define int64__read_string_forward_h
               
-namespace int64{
+namespace Rint64{
     namespace internal{
 
     template <typename LONG>
     inline LONG read_string(const char* s) ;
         
     } // namespace internal
-} // namespace int64
+} // namespace Rint64
 
 #endif

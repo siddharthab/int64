@@ -21,7 +21,7 @@
 #ifndef int64__as_long__h
 #define int64__as_long__h
               
-namespace int64{
+namespace Rint64{
     namespace internal{
        
 template <typename LONG>
@@ -30,6 +30,6 @@ SEXP as_long(SEXP x){
 }
         
     } // namespace internal
-} // namespace int64
+} // namespace Rint64
 
 #endif

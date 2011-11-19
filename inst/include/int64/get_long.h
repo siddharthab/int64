@@ -21,7 +21,7 @@
 #ifndef int64__get_long__h
 #define int64__get_long__h
     
-namespace int64{
+namespace Rint64{
     namespace internal{
 
 template <typename T>
@@ -31,6 +31,6 @@ inline T get_long( int highbits, int lowbits ){
 
     } // namespace internal
     
-} // namespace int64
+} // namespace Rint64
 
 #endif

@@ -22,7 +22,7 @@
 #define int64_int2_h
 
 
-namespace int64{
+namespace Rint64{
     namespace internal{
         
         // we only use this for T=int

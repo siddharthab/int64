@@ -21,7 +21,7 @@
 #ifndef int64__read_string__h
 #define int64__read_string__h
               
-namespace int64{
+namespace Rint64{
     namespace internal{
  
     template <>
@@ -29,7 +29,7 @@ namespace int64{
         errno = 0 ;
         int64_t res = strtoll( s, NULL, 0 ) ;
         if( errno == ERANGE ) {
-            res = int64::LongVector<int64_t>::na() ;
+            res = Rint64::LongVector<int64_t>::na() ;
             int64_naflag = true ;
         }
         return res ;
@@ -40,7 +40,7 @@ namespace int64{
         errno = 0 ;
         uint64_t res = strtoull( s, NULL, 0 ) ;
         if( errno == ERANGE ) {
-            res = int64::LongVector<uint64_t>::na() ;
+            res = Rint64::LongVector<uint64_t>::na() ;
             int64_naflag = true ;
         }
         return res ;
@@ -48,6 +48,6 @@ namespace int64{
         
     
     } // namespace internal
-} // namespace int64
+} // namespace Rint64
 
 #endif
