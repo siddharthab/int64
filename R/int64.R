@@ -307,4 +307,6 @@ c_int64 <- function(as, ctor){
 setMethod( "c", "int64", c_int64( as.int64, int64 ) )
 setMethod( "c", "uint64", c_int64( as.uint64, uint64 ) )
 
+setAs("character", "int64", function(from) as.int64(from))
+setAs("character", "uint64", function(from) as.uint64(from))
 
