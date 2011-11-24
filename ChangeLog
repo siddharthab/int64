@@ -1,5 +1,9 @@
 2011-11-23  Romain Francois  <romain@r-enthusiasts.com>
 
+    * inst/unitTests/runit.int64.R: testing read.csv
+
+2011-11-23  Romain Francois  <romain@r-enthusiasts.com>
+
     * R/int64.R: implementing setAs so that read.csv can handle colClasses = "int64"
     and "uint64". Suggestion from Gabor Grothendieck on R-devel
     

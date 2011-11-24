@@ -1,7 +1,7 @@
 Package: int64
 Type: Package
 Title: 64 bit integer types
-Version: 1.1.0
+Version: 1.2.0
 Date: 2011-11-21
 Author: Romain Francois, sponsored by the Google Open Source Programs Office
 Maintainer: Romain Francois <romain@r-enthusiasts.com>
