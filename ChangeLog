@@ -1,6 +1,6 @@
-2011-11-23  Romain Francois  <romain@r-enthusiasts.com>
+2011-11-26  Romain Francois  <romain@r-enthusiasts.com>
 
-    * R/int64.R: str.[u]int64 as requested by Hadley Wickham
+    * R/int64.R: str and log10 methods for [u]int64 as requested by Hadley Wickham
 
 2011-11-23  Romain Francois  <romain@r-enthusiasts.com>
 

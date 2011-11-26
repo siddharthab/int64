@@ -140,6 +140,25 @@ SEXP cumsum( SEXP x){
     return res ;
 }
 
+template <typename LONG>
+SEXP int64_log10( SEXP x ){
+    Rint64::LongVector<LONG> data(x) ;
+    int n = data.size() ;
+    const LONG na = long_traits<LONG>::na() ;
+    SEXP res = PROTECT( Rf_allocVector( REALSXP, n ) ) ;
+    double* p_res = REAL(res) ;
+    LONG tmp; 
+    for(int i=0; i<n; i++){
+        tmp = data.get(i) ;
+        if( tmp == na ) {
+            p_res[i] = NA_REAL;
+        } else {
+            p_res[i] = (double) log10( (long double)data.get(i) ) ;   
+        }
+    }
+    UNPROTECT(1) ; // res
+    return res ;
+}
 
 template <typename LONG>
 SEXP math( const char* op, SEXP x ){
@@ -160,6 +179,8 @@ SEXP math( const char* op, SEXP x ){
         return cumprod<LONG>( x ) ;
     } else if( !strncmp( op, "cumsum", 6 ) ){
         return cumsum<LONG>( x ) ;   
+    } else if( !strncmp( op, "log10", 5 ) ){
+        return int64_log10<LONG>( x ) ;   
     }
     
     Rf_error( "generic not implemented" );
