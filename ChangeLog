@@ -1,5 +1,9 @@
 2011-11-23  Romain Francois  <romain@r-enthusiasts.com>
 
+    * R/int64.R: str.[u]int64 as requested by Hadley Wickham
+
+2011-11-23  Romain Francois  <romain@r-enthusiasts.com>
+
     * inst/unitTests/runit.int64.R: testing read.csv
 
 2011-11-23  Romain Francois  <romain@r-enthusiasts.com>
